@@ -1,0 +1,108 @@
+﻿@model CosmeticsShop.Models.Product
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+    //Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    List<CosmeticsShop.Models.ItemCart> itemCarts = Session["Cart"] as List<CosmeticsShop.Models.ItemCart>;
+    List<CosmeticsShop.Models.Category> categories = ViewBag.ListCategory as List<CosmeticsShop.Models.Category>;
+}
+
+<script>
+    $(document).ready(function () {
+        $('.item_add').click(function () {
+            event.preventDefault();
+            var ID = $(this).data("id");
+            $.ajax({
+                url: '/Cart/AddItem',
+                data: {
+                    ProductID: ID
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == true) {
+                        $.notify("Thêm vào giỏ hàng thành công!", "success");
+
+                        $.ajax({
+                            url: '/Cart/GetTotalCart',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (response) {
+                                $(".simpleCart_total").html(response.TotalPrice + "₫ (" + response.TotalQuantity + ")")
+                            },
+                        });
+                    } else {
+                        $.notify("Số lượng không đủ!", "error");
+                    }
+                },
+            });
+        })
+    });
+</script>
+<section class="page-add">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="page-breadcrumb">
+                    <a href="#">Trang chủ</a>
+
+                    <a class="active" href="#">@Model.Name</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+    </div>
+</section>
+<div class="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li data-thumb="@Url.Content("~/Content/images/" + Model.Image1)">
+                            <img src="@Url.Content("~/Content/images/" + Model.Image1)" data-imagezoom="true" class="img-responsive">
+                        </li>
+                        @if (Model.Image2 != null)
+                        {
+                            <li data-thumb="@Url.Content("~/Content/images/" + Model.Image2)">
+                                <div class="thumb-image"> <img src="@Url.Content("~/Content/images/" + Model.Image2)" data-imagezoom="true" class="img-responsive"> </div>
+                            </li>
+                        }
+                        @if (Model.Image3 != null)
+                        {
+                            <li data-thumb="@Url.Content("~/Content/images/" + Model.Image3)">
+                                <div class="thumb-image"> <img src="@Url.Content("~/Content/images/" + Model.Image3)" data-imagezoom="true" class="img-responsive"> </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-7 product-content">
+                <div class="single-para simpleCart_shelfItem">
+                    <h2>@Model.Name</h2>
+                    <div class="pc-meta">
+                        <h5> @Model.Price.Value.ToString("#,##")₫</h5>
+                        <h4> Đã bán: @Model.PurchasedCount</h4>
+                    </div>
+                    <div>@Html.Raw(Model.Description)</div>
+                    <ul class="tags">
+                        <li>
+                            <span>Danh mục :</span>
+                            <a style="color:brown" href="/Product/Index?CategoryID=@Model.Category.ID">
+                                @Model.Category.Name
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="product-quantity">
+                        <div class="pro-qty">
+                            <input type="number" class="qty" value="1">
+                        </div>
+                    </div>
+                    <a href="#" class="item_add primary-btn pc-btn" data-id="@Model.ID">Chọn mua</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

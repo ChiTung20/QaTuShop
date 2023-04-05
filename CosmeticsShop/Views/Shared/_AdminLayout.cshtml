@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/Admin/css/adminlte.min.css">
+    <!-- Icon -->
+    <script src="https://kit.fontawesome.com/b8d8146b21.js" crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="~/Content/Admin/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/Content/Admin/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Content/js/notify.min.js"></script>
+    <script src="~/Scripts/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- Textarea -->
+    <script src="~/Scripts/textarea.js"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/Admin/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Content/Admin/assets/vendors/iconly/bold.css">
+    <link rel="stylesheet" href="~/Content/Admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/Content/Admin/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/Content/Admin/assets/css/app.css">
+    <link rel="shortcut icon" href="~/Content/Admin/assets/images/favicon.svg" type="image/x-icon">
+</head>
+<body>
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="user-panel d-flex">
+                            @{
+                                CosmeticsShop.Models.User user = Session["User"] as CosmeticsShop.Models.User;
+                                if (user != null)
+                                {
+                                    <div class="image">
+                                        <img style="width: 40px; height:40px" src="~/Content/images/@user.Avatar" class="img-circle elevation-2" alt="User Image">
+                                    </div>
+                                    <div class="info">
+                                        <a href="" class="d-block">@user.UserType.Name</a>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="toggler d-xl-none d-block">
+                            <a href="#" class="sidebar-hide"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul style="margin-top:0 !important" class="menu">
+                        <li class="sidebar-title">Menu</li>
+
+                        <li class="sidebar-item @*active*@">
+                            <a href="/Admin/" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Tổng Quan</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-title"> App </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                <span>Sản phẩm</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="/ProductManage/Index">Sản phẩm</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="/CategoryManage/Index">Danh mục</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="/SlideManage/Index" class='sidebar-link'>
+                                <i class="fa-solid fa-tower-cell"></i>
+                                <span>Tin tức</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/OrderManage/" class='sidebar-link'>
+                                <i class="fa-solid fa-file-invoice"></i>
+                                <span>Đơn hàng</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="/Chat/" class='sidebar-link'>
+                                <i class="fa-solid fa-comments"></i>
+                                <span>Chat</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-title">Statistic</li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fa-solid fa-chart-simple"></i>
+                                <span>Thống kê</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="@Url.Action("Index","Statistic",new { from=DateTime.Now,to=DateTime.Now})">Đặt hàng</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="/Statistic/Product">Sản phẩm</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="@Url.Action("SalesRevenue","Statistic",new { from=DateTime.Now,to=DateTime.Now})">Doanh thu</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/Home/SignOut" class='sidebar-link'>
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+
+            @RenderBody()
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start position-absolute bottom-right">
+                        <p><i>@DateTime.Now.ToLongDateString()</i></p>
+                        <p>2022 &copy; QaTu</p>
+                    </div>
+                    <div style="right:20px" class="float-end position-absolute bottom-left">
+                        <p>
+                            Design <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="https://www.facebook.com/tune203/">Nguyễn Chí Tùng</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/Content/js/main.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Content/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Chatbox -->
+    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <script src="~/Scripts/ChatboxAdmin.js"></script>
+</body>
+</html>

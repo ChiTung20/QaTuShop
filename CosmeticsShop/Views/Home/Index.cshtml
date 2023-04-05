@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    List<CosmeticsShop.Models.Product> products = ViewBag.ListProduct as List<CosmeticsShop.Models.Product>;
+}
+<script>
+    $(document).ready(function () {
+        $(".item_add").on('click', function () {
+            event.preventDefault();
+            var ID = $(this).data("id");
+            $.ajax({
+                url: '/Cart/AddItem',
+                data: {
+                    ProductID: ID
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == true) {
+                        $.notify("Thêm vào giỏ hàng thành công!", "success");
+
+                        $.ajax({
+                            url: '/Cart/GetTotalCart',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (response) {
+                                $(".simpleCart_total").html(response.TotalPrice + "₫ (" + response.TotalQuantity + ")")
+                            },
+                        });
+                    } else {
+                        $.notify("Số lượng không đủ!", "error");
+                    }
+                },
+            });
+        })
+    });
+</script>
+<!--banner-->
+<section>
+    <div class="hero-items owl-carousel">
+
+        <div class="single-slider-item set-bg" data-setbg="@Url.Content("~/Content/Webapp/img/slider-2.jpg")">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 style="color: #808080">2023</h1>
+                        <h2 style="color: #1E1E1E"></h2>
+                        <a href="/Product/" class="primary-btn">See More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Slider End -->
+<section class="spad pb-0" style="background-color: #fdedfa">
+    <div class="features-ads">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="single-features-ads first">
+                        <img src="~/Content/Webapp/img/icons/f-delivery.png" alt="" >
+                        <h4>Free shipping</h4>
+                        <p>
+                            Chúng tôi hỗ trợ hình thức thanh toán chuyển khoản đối với các khách hàng online.
+                            Ngoài ra, chúng tôi còn hỗ trợ hình thức thanh toán khi nhận hàng COD
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-features-ads second">
+                        <img src="~/Content/Webapp/img/icons/coin.png" alt="">
+                        <h4>100% Money back </h4>
+                        <p>
+                            Trường hợp sản phẩm hư hại do quá trình vận chuyển hoặc do nhà sản xuất thì quý
+                            khách có thể từ chối nhận và yêu cầu bộ phận giao hàng liên hệ trực tiếp với chúng tôi.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-features-ads">
+                        <img src="~/Content/Webapp/img/icons/chat.png" alt="">
+                        <h4>Online support 24/7</h4>
+                        <p>
+                            Đội ngũ hỗ trợ trực tuyến 24/7
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Product Begin -->
+<section class="latest-products">
+    <div class="container">
+        <div class="product-filter">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <h2>Sản phẩm bán chạy</h2>
+                    </div>
+                    @*<ul class="product-controls">
+                        <li data-filter="*">All</li>
+                    </ul>*@
+                </div>
+            </div>
+        </div>
+        <div class="row" id="product-list">
+            @if (products.Count > 0)
+            {
+                int count = 1;
+                for (int i = count - 1; i < products.Count; i++)
+                {
+                    <div class="col-lg-3 col-sm-6 mix all">
+                        <div class="single-product-item">
+                            <figure>
+                                <a href="/Product/Details/@products[i].ID"><img src="~/Content/images/@products[i].Image1" alt=""></a>
+                                @*<div class="p-status">new</div>*@
+                            </figure>
+                            <div class="product-text">
+                                <h6>@products[i].Name</h6>
+                                <p>Đã bán: @products[i].PurchasedCount (Còn lại @products[i].Quantity)</p>
+                                <p>@products[i].Price.Value.ToString("#,##")₫ -  <a href="#" class="item_add" data-id="@products[i].ID"><img src="~/Content/images/cart.png" alt="" /></a></p>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+
+                    </div>
+                }
+
+            }
+            else
+            {
+                <h3>Không có sản phẩm nào...</h3>
+            }
+        </div>
+    </div>
+</section>
+<!-- Latest Product End -->
+<!-- Logo Section Begin -->
+<div class="logo-section spad" style="background-color:white" >
+    <div class="logo-items owl-carousel">
+        <div class="logo-item">
+            <img src="~/Content/images/logo/logo1.jpg" alt="">
+        </div>
+        <div class="logo-item">
+            <img src="~/Content/images/logo/logo2.png" alt="">
+        </div>
+        <div class="logo-item">
+            <img src="~/Content/images/logo/logo3.jpg" alt="">
+        </div>
+        <div class="logo-item">
+            <img src="~/Content/images/logo/logo4.jpg" alt="">
+        </div>
+        <div class="logo-item">
+            <img src="~/Content/images/logo/logo5.jpg" alt="">
+        </div>
+    </div>
+</div>
+<!-- Logo Section End -->

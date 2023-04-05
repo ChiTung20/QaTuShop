@@ -1,0 +1,180 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@model IPagedList<CosmeticsShop.Models.Product>
+@{
+    ViewBag.Title = ViewBag.NamePage;
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    List<CosmeticsShop.Models.Category> categories = ViewBag.ListCategory as List<CosmeticsShop.Models.Category>;
+    List<CosmeticsShop.Models.Product> products = ViewBag.ListProduct as List<CosmeticsShop.Models.Product>;
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="~/Content/Webapp/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/magnific-popup.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/style.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/flexslider.css" type="text/css">
+
+<script>
+    $(document).ready(function () {
+        $(".item_add").on('click', function () {
+            event.preventDefault();
+            var ID = $(this).data("id");
+            $.ajax({
+                url: '/Cart/AddItem',
+                data: {
+                    ProductID: ID
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == true) {
+                        $.notify("Thêm vào giỏ hàng thành công!", "success");
+
+                        $.ajax({
+                            url: '/Cart/GetTotalCart',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (response) {
+                                $(".simpleCart_total").html(response.TotalPrice + "₫ (" + response.TotalQuantity + ")")
+                            },
+                        });
+                    } else {
+                        $.notify("Số lượng không đủ!", "error");
+                    }
+                },
+            });
+        })
+    });
+</script>
+<section class="page-add mb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="page-breadcrumb">
+                    <h2>Tất cả sản phẩm<span>.</span></h2>
+                    <a href="#">Trang chủ</a>
+
+                    <a class="active" href="#">Tất cả sản phẩm</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+    </div>
+</section>
+<!--content-->
+<div>
+    <div class="container">
+        <div class="d-flex justify-content-between">
+            <div class="col-md-3 product-bottom">
+                <h3 class="cate" style="color: #1E1E1E">Danh mục</h3>
+                <!--categories-->
+                <div class="categories-controls">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="categories-filter">
+                                <div class="cf-left">
+                                    <form action="#">
+                                        <select class="sort" onchange="javascrip: location.href = this.value">
+                                            <option value="">Danh Mục</option>
+                                            <option value="/Product/Index">All</option>
+                                            @foreach (var item in categories)
+                                            {
+                                                <option value="/Product/Index?CategoryID=@item.ID">@item.Name</option>
+
+                                            }
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- end categories-->
+            </div>
+            <div class="col-md-3 product-bottom">
+                <h3 class="cate" style="color: #1E1E1E">Sắp xếp</h3>
+                <!--categories-->
+                <div class="categories-controls">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="categories-filter">
+                                <div class="cf-left">
+                                    <form action="#">
+                                        <select class="sort" onchange="javascrip: location.href = this.value">
+                                            <option value="">Chọn</option>
+                                            <option value="/Product/Index?SortPrice=2">Giá từ cao đến thấp</option>
+                                            <option value="/Product/Index?SortPrice=1">Giá từ thấp đến cao</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end categories-->
+            </div>
+        </div>
+        <div class="row">
+            @if (Model != null && Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    //int count = 1;
+                    //for (int i = count - 1; i < products.Count; i++)
+
+                    <div class="col-lg-3 col-sm-6 mix all">
+                        <div class="single-product-item">
+                            <figure>
+                                <a href="/Product/Details/@item.ID"><img src="~/Content/images/@item.Image1" alt=""></a>
+                                @*<div class="p-status">new</div>*@
+                            </figure>
+                            <div class="product-text">
+                                <h6>@item.Name</h6>
+                                <p>Đã bán: @item.PurchasedCount (Còn lại @item.Quantity)</p>
+                                <p>@item.Price.Value.ToString("#,##")₫ -  <a href="#" class="item_add" data-id="@item.ID"><img src="~/Content/images/cart.png" alt="" /></a></p>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                }
+            }
+            else
+            {
+                <div class="alert alert-light border-dark w-50">
+                    <h4 class="alert-heading">Rất tiếc, không tìm thấy sản phẩm nào </h4>
+                </div>
+            }
+
+
+        </div>
+        <div class="card-body">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination ">
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                                                    new { page }))
+                    <li class="paginate_button">
+
+                    </li>
+
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</div>
+<!--//content-->

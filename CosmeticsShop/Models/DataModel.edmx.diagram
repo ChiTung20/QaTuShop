@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0b8fe57f66ea41c0aa51596792d71e96" Name="Diagram1" ZoomLevel="93">
+        <EntityTypeShape EntityType="ShoppingModel.Category" Width="1.5" PointX="7.625" PointY="8.625" />
+        <EntityTypeShape EntityType="ShoppingModel.Message" Width="1.5" PointX="2.25" PointY="7.875" />
+        <EntityTypeShape EntityType="ShoppingModel.OrderDetail" Width="1.5" PointX="9.875" PointY="4" />
+        <EntityTypeShape EntityType="ShoppingModel.Order" Width="1.5" PointX="2.875" PointY="3.625" />
+        <EntityTypeShape EntityType="ShoppingModel.Product" Width="1.5" PointX="12" PointY="6.125" />
+        <EntityTypeShape EntityType="ShoppingModel.UserType" Width="1.5" PointX="0.75" PointY="6" />
+        <AssociationConnector Association="ShoppingModel.FK__Products__Catego__239E4DCF" />
+        <AssociationConnector Association="ShoppingModel.FK__OrderDeta__Order__25869641" />
+        <AssociationConnector Association="ShoppingModel.FK__OrderDeta__Produ__24927208" />
+        <EntityTypeShape EntityType="ShoppingModel.User" Width="1.5" PointX="5.375" PointY="5.75" />
+        <AssociationConnector Association="ShoppingModel.FK__Message__FromUse__36B12243" />
+        <AssociationConnector Association="ShoppingModel.FK__Message__ToUserI__37A5467C" />
+        <AssociationConnector Association="ShoppingModel.FK__Orders__UserID__4316F928" />
+        <AssociationConnector Association="ShoppingModel.FK__Products__Create__276EDEB3" />
+        <AssociationConnector Association="ShoppingModel.FK__Users__UserTypeI__45F365D3" />
+        <EntityTypeShape EntityType="ShoppingModel.Slide" Width="1.5" PointX="7.875" PointY="4.375" />
+        <AssociationConnector Association="ShoppingModel.FK_Slides_Users" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

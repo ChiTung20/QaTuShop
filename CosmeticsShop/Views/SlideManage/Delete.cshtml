@@ -1,0 +1,20 @@
+﻿@model CosmeticsShop.Models.Slide
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Bạn có thật sự muốn xoá?</h3>
+<div>
+
+    @using (Html.BeginForm("Delete", "SlideManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <div class="card-footer">
+            <a href="/SlideManage/" class="btn btn-light-secondary">Trở lại</a>
+            <button type="submit" class="btn btn-danger ml-1">Xoá</button>
+        </div>
+    }
+</div>

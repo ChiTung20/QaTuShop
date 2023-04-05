@@ -1,0 +1,71 @@
+﻿@model CosmeticsShop.Models.Slide
+@{
+    ViewBag.Title = @Model.Name;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Xem/Sửa sản phẩm</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Xem/Sửa tin tức</a></li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="alert alert-primary">
+                        <i class="bi bi-star"></i> @Model.Name
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    @using (Html.BeginForm("Edit", "SlideManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+                        <input type="text" name="ID" value="@Model.ID" hidden />
+                        <div class="card-body">
+                            <span class="badge bg-success">@ViewBag.Message</span>
+                            <div class="form-group">
+                                <label>Tên</label>
+                                <input type="text" class="form-control" value="@Model.Name" required name="Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Thứ tự bài viết</label>
+                                <input type="number" class="form-control" value="@Model.DisplayOrder" required name="DisplayOrder">
+                            </div>
+                            <div class="form-group">
+                                <label>Hình </label>
+                                <img src="~/Content/images/@Model.Image" alt="Alternate Text" style="width:25%;height:25%;border: solid 1px gray" />
+                            </div>
+                            <div class="form-group">
+                                <label>Chọn hình mới</label>
+                                <input type="file" class="form-control" name="ImageUpload">
+                            </div>
+                            <div class="form-group">
+                                <label>Mô tả</label>
+                                <textarea class="form-control" id="mytextarea" name="Description">@Model.Description</textarea>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <a href="/SlideManage/" class="btn btn-light-secondary">Trở lại</a>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

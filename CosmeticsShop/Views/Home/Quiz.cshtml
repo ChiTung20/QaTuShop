@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<!-- JQVMap -->
+<link rel="stylesheet" href="~/Content/Admin/plugins/jqvmap/jqvmap.min.css">
+<!-- Theme style -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/Admin/assets/css/bootstrap.css">
+
+
+ </script>
+<!-- start menu -->
+<script src="~/Content/js/bootstrap.min.js"></script>
+<!-- slide -->
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap"
+      rel="stylesheet">
+<!-- Css Styles -->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Return Url -->
+
+<link rel="stylesheet" href="~/Content/Webapp/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/magnific-popup.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="~/Content/Webapp/css/style.css" type="text/css">
+
+
+<section class="page-add mb-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="page-breadcrumb">
+                    <h4>Gợi ý sản phẩm<span>.</span></h4>
+                    <a href="#">Trang chủ</a>
+                    <a class="active" href="#">Gợi ý sản phẩm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="quiz-containera h-50 d-flex justify-content-center align-items-center" id="quiz">
+    <div class="quiz-header">
+        <h2 id="questions">questions</h2>
+        <ul class="list-group ml-3">
+            <li class="d-flex align-items-baseline">
+                <input class="answer d-block mr-2" type="radio" name="answer" id="a">
+                <label class="d-block" for="a" id="a_text">a</label>
+            <li class="d-flex align-items-baseline">
+                <input class="answer d-block mr-2" style="display:block;margin-right:10px;" type="radio" name="answer" id="b">
+                <label class="d-block" for="b" id="b_text">b</label>
+            </li>
+            <li class="d-flex align-items-baseline">
+                <input class="answer d-block mr-2" type="radio" name="answer" id="c">
+                <label class="d-block" for="c" id="c_text">c</label>
+            </li>
+            <li class="d-flex align-items-baseline">
+                <input class="answer d-block mr-2" type="radio" name="answer" id="d">
+                <label class="d-block" for="d" id="d_text">d</label>
+            </li>
+        </ul>
+    </div>
+    <button type="button" class="btn btn-info rounded-pill" id="button">Qua câu khác</button>
+</div>
+<script>
+    const quiz_Data = [
+        {
+            question: "Sau khi tôi rửa mặt, da của tôi cảm thấy.",
+            a: "Căng da và không thoải mái",
+            b: "Căng bóng ngay cả vào buổi trưa!",
+            c: "Cảm thấy hơi căng, nhưng hầu như không sao, nhưng sau đó sẽ căng bóng vào buổi chiều",
+            d: "Có màu đỏ và đôi khi cảm thấy ngứa",
+            correct: "d"
+        },
+        {
+            question: "Lỗ chân lông của tôi...",
+            a: "Lỗ chân lông nào? Tôi hầu như không nhận thấy chúng.",
+            b: "Trông lớn quá! Lúc nào cũng vậy.",
+            c: "Tôi ghét trên mũi! Nhưng trên má tôi thậm chí còn không nhìn thấy chúng!",
+            d: "Ai quan tâm đến lỗ chân lông chứ! Mặt tôi đỏ quá/đầy vết loang lổ nên không nhận ra!",
+            correct: "a"
+        },
+        {
+            question: "Nhìn chung, làn da của tôi...",
+            a: "Có thể bong tróc một chút, nhưng chắc chắn là xỉn màu, có ít đường nhăn và nếp nhăn.",
+            b: "Trông giống vỏ cam căng bóng!",
+            c: "Có vẻ ổn. Ý tôi là một chút dầu, một chút bong tróc. Có thể là bị nhẹ.",
+            d: "Có vẻ bong tróc, vì vậy tôi chà nó, và nó chỉ đỏ lên và trông bong tróc hơn?",
+            correct: "a"
+        },
+        {
+            question: " Khi tôi chạm vào mặt mình...",
+            a: "Da tôi hơi sần sùi và nhăn nheo.",
+            b: "Tôi cảm thấy cần một chiếc khăn ăn để lau những ngón tay dính dầu mỡ của mình!",
+            c: "Má tôi hơi giống giấy nhám, nhưng trán tôi trơn!",
+            d: "Tôi không thể chạm vào mặt mình, nếu không nó sẽ chuyển sang màu đỏ!",
+            correct: "c"
+        },
+        {
+            question: "Sản phẩm chăm sóc da mà tôi không nên thiếu là...",
+            a: "Dưỡng ẩm loại nhiều 'đô' hơn!",
+            b: "Sữa rửa mặt tạo bọt",
+            c: "Kem dưỡng ẩm nhẹ",
+            d: "Tôi có được phép chọn một viên đá trên một sản phẩm không?",
+            correct: "c"
+        }
+    ]
+    let result = [];
+
+    const questionEl = document.getElementById('questions')
+    const answerEl = document.querySelectorAll('.answer')
+    const quiz = document.getElementById('quiz')
+    const a_text = document.getElementById('a_text')
+    const b_text = document.getElementById("b_text")
+    const c_text = document.getElementById('c_text')
+    const d_text = document.getElementById('d_text')
+    const button = document.getElementById('button')
+
+    let currentQuiz = 0;
+    let score = 0
+    loadQuiz();
+
+    function loadQuiz() {
+        deleteCheck()
+        const currentQuizData = quiz_Data[currentQuiz]
+        if (currentQuizData) {
+            questionEl.innerText = currentQuizData.question
+            a_text.innerText = currentQuizData.a
+            b_text.innerText = currentQuizData.b
+            c_text.innerText = currentQuizData.c
+            d_text.innerText = currentQuizData.d
+        }
+    }
+    var id = 0;
+    function checkAnswer() {
+        let answer = undefined
+        answerEl.forEach(el => {
+            if (el.checked) {
+                answer = el.id;
+                id = el.id;
+            }
+        });
+        return answer
+    }
+
+    function deleteCheck() {
+        answerEl.forEach(el => {
+            el.checked = false;
+        })
+    }
+
+
+
+    button.addEventListener("click", () => {
+        const answer = checkAnswer()
+        result.push(quiz_Data[currentQuiz][id])
+        console.log(result)
+        if (answer) {
+
+            if (answer === quiz_Data[currentQuiz].correct) {
+                score++
+            }
+            currentQuiz++;
+            if (currentQuiz < quiz_Data.length) {
+                loadQuiz()
+            } else {
+                xmlhttp = new XMLHttpRequest;
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        var response = JSON.parse(xmlhttp.responseText);
+                        window.location.href = "/Home/Suggest?message=" + response.message;
+                    }
+                }
+                xmlhttp.open("POST", "/Home/Suggest");
+                xmlhttp.setRequestHeader("Content-Type", "application/json");
+                xmlhttp.send(JSON.stringify(result))
+            }
+        }
+
+    })
+</script>
+
+

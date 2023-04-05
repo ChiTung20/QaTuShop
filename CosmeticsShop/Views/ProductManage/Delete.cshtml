@@ -1,0 +1,18 @@
+﻿@model CosmeticsShop.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Bạn có thật sự muốn xoá?</h1>
+<div>
+
+    @using (Html.BeginForm("Delete", "ProductManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <div class="card-footer">
+            <a href="/ProductManage/"  class="btn btn-light-secondary">Trở lại</a>
+            <button type="submit" class="btn btn-danger ml-1">Xoá</button>
+        </div>
+    }
+</div>

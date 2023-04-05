@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CosmeticsShop.Models.Slide>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<section class="page-add mb-2 px-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="page-breadcrumb">
+                    <h2>Tin tức nổi bật<span>.</span></h2>
+                    <a href="#">Trang chủ</a>
+
+                    <a class="active" href="#">Diễn đàn</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+    </div>
+</section>
+<body>
+    <div id="app">
+        <section id="content-types" class="mt-4 px-5">
+            <div class="row">
+                @{
+                    foreach (var slide in Model)
+                    {
+                        <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
+                            <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+                                <div class="card-content">
+                                    <img style="object-fit:cover" class="card-img-top img-fluid" src="~/Content/images/@slide.Image"
+                                         alt="Card image cap" />
+                                    <div class="card-body">
+                                        <h4 class="card-title">Blog số #@slide.ID</h4>
+                                        <p class="card-text">
+                                            @slide.Name
+                                        </p>
+                                        <p class="card-text">
+                                            Tác giả: @slide.User.Name
+                                        </p>
+                                        <a href="/Slide/Details/@slide.ID" class="btn btn-secondary block">Xem thêm</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </section>
+    </div>
+</body>
