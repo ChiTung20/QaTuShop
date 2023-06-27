@@ -3,7 +3,7 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
-@font-face {
+/*@font-face {
     font-family: 'Roboto-Regular';
     src: url(../fonts/Roboto-Regular.ttf) format('truetype');
 }
@@ -29,13 +29,13 @@ ul {
 
 h1, h2, h3, h4, h5, h6, label, p {
     margin: 0;
-}
+}*/
 /*----*/
-.logo span {
+/*.logo span {
     color: #fa03bb;
-}
+}*/
 
-.header-top {
+/*.header-top {
     padding: 15px 0;
     border-bottom: 1px solid #d0d0d0;
 }
@@ -71,9 +71,9 @@ h1, h2, h3, h4, h5, h6, label, p {
 .number span {
     color: #403b37;
     font-size: 1em;
-}
+}*/
 /* start menu */
-.navbar-default {
+/*.navbar-default {
     background-color: #f1b458 !important;
     border-color: #f1b458;
     border-radius: 0px;
@@ -107,7 +107,7 @@ h1, h2, h3, h4, h5, h6, label, p {
     text-transform: uppercase;
     letter-spacing: 3px;
     font-weight: 500;
-}
+}*/
 
 .navbar-default .navbar-brand {
     color: #fff;
@@ -680,7 +680,7 @@ ul.callbacks_tabs.callbacks1_tabs {
     font-weight: 700;
 }
 
-.top-footer1 input[type="text"] {
+/*.top-footer1 input[type="text"] {
     width: 65%;
     padding: 0.6em;
     outline: none;
@@ -711,7 +711,7 @@ ul.callbacks_tabs.callbacks1_tabs {
 
 .footer-top {
     padding: 3em 0;
-}
+}*/
 
 .footer-bottom-cate h6 {
     font-size: 1.6em;
@@ -804,7 +804,7 @@ p.footer-class {
     padding: 0 0 0.5em;
 }
 
-.contact-bottom input[type="text"] {
+/*.contact-bottom input[type="text"] {
     width: 100%;
     padding: 0.7em;
     border: 1px solid #bbb;
@@ -850,7 +850,7 @@ p.footer-class {
 
     .contact-form input[type="submit"]:hover {
         background: #fa03bb;
-    }
+    }*/
 
 .address-grid i {
     color: #403b37;
@@ -952,7 +952,7 @@ p.footer-class {
     width: 95%;
 }
 
-.acount-btn {
+/*.acount-btn {
     background: #403b37;
     color: #FFF;
     font-size: 0.9em;
@@ -1017,7 +1017,7 @@ p.footer-class {
     text-transform: uppercase;
     border: none;
     outline: none;
-}
+}*/
 
 a.forgot {
     font-size: 0.8125em;
@@ -1088,7 +1088,7 @@ ul.social {
     display: block;
 }
 
-.register-top-grid input[type="text"], .register-bottom-grid input[type="password"] {
+/*.register-top-grid input[type="text"], .register-bottom-grid input[type="password"] {
     border: 1px solid #EEE;
     outline-color: #fa03bb;
     width: 100%;
@@ -1105,7 +1105,7 @@ ul.social {
     padding: 0.5em;
     margin: 0.5em 0;
 }
-
+*/
 .checkbox {
     margin-bottom: 4px;
     padding-left: 27px;
@@ -1148,7 +1148,7 @@ ul.social {
     border: 2px solid #fa03bb;
 }
 
-.checkbox input + i:after {
+/*.checkbox input + i:after {
     content: '';
     background: url("../images/check.png") no-repeat 0px 0px;
     top: 0px;
@@ -1202,7 +1202,7 @@ ul.social {
 
     .register-but input[type="submit"]:hover {
         background: #403b37;
-    }
+    }*/
 
 .mation {
     padding: 1em 0;
@@ -1506,7 +1506,7 @@ a.at-in {
         padding: 1em 0 0;
     }
 
-.check input[type="text"] {
+/*.check input[type="text"] {
     width: 76%;
     padding: 0.3em;
     margin: 1em 0;
@@ -1514,7 +1514,7 @@ a.at-in {
     outline: none;
     text-align: center;
     border: 1px solid #000;
-}
+}*/
 
 .check {
     width: 6%;

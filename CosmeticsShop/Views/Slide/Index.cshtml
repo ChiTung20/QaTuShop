@@ -4,50 +4,64 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<section class="page-add mb-2 px-3">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="page-breadcrumb">
-                    <h2>Tin tức nổi bật<span>.</span></h2>
-                    <a href="#">Trang chủ</a>
 
-                    <a class="active" href="#">Diễn đàn</a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-            </div>
-        </div>
-    </div>
-</section>
-<body>
-    <div id="app">
-        <section id="content-types" class="mt-4 px-5">
-            <div class="row">
+
+
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Blog Grid 2 Columns<span>Blog</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Grid 2 Columns</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="container">
+
+
+            <div class="entry-container max-col-2" data-layout="fitRows">
                 @{
                     foreach (var slide in Model)
                     {
-                        <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
-                            <div class="card shadow-sm p-3 mb-5 bg-white rounded">
-                                <div class="card-content">
-                                    <img style="object-fit:cover" class="card-img-top img-fluid" src="~/Content/images/@slide.Image"
-                                         alt="Card image cap" />
-                                    <div class="card-body">
-                                        <h4 class="card-title">Blog số #@slide.ID</h4>
-                                        <p class="card-text">
-                                            @slide.Name
-                                        </p>
-                                        <p class="card-text">
-                                            Tác giả: @slide.User.Name
-                                        </p>
-                                        <a href="/Slide/Details/@slide.ID" class="btn btn-secondary block">Xem thêm</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="entry-item lifestyle shopping col-sm-6">
+                                            <article class="entry entry-grid text-center">
+                                                <figure class="entry-media">
+                                                    <a href="/Slide/Details/@slide.ID">
+                                                        <img src="~/Content/images/@slide.Image" alt="image desc">
+                                                    </a>
+                                                </figure><!-- End .entry-media -->
+
+                                                <h2 class="entry-title">
+                                                    <a href="/Slide/Details/@slide.ID"> @slide.Name</a>
+                                                </h2><!-- End .entry-title -->
+                                                <div class="entry-body">
+                                                    <div class="entry-meta">
+                                                        <span class="entry-author">
+                                                            Tác Giả: <a href="/Slide/Details/@slide.ID">@slide.User.Name</a>
+                                                        </span>
+                                                        <span class="meta-separator">|</span>
+                                                        <a href="#">@slide.CreatedDate</a>
+                                                      
+                                                    </div><!-- End .entry-meta -->
+
+                                                    
+                                                </div><!-- End .entry-body -->
+                                            </article><!-- End .entry -->
+                        </div><!-- End .entry-item -->
                     }
                 }
-            </div>
-        </section>
-    </div>
-</body>
+            </div><!-- End .entry-container -->
+           
+        </div><!-- End .container -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+

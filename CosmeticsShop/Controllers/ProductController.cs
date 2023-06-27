@@ -14,16 +14,24 @@ namespace CosmeticsShop.Controllers
     {
         ShoppingEntities db = new ShoppingEntities();
         // GET: Product
-        public ActionResult Index(int CategoryID = 0, string keyword = "", int SortPrice = 0, int? page = 1)
+        public ActionResult Index(int CategoryID = 0, string keyword = "", int SortPrice = 0, int? page = 1, string currentSearch = "")
         {
             List<Product> lsproducts = new List<Product>();
             //Phân trang
-            if (page == null) page = 1;
+            //if (page == null) page = 1;
             int pageSize = 8;
             int pageNumber = (page ?? 1);
-
-            ViewBag.ListCategory = db.Categories.Where(x => x.IsActive == true ).ToList();
+            if (keyword != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                keyword = currentSearch;
+            }
+            ViewBag.ListCategory = db.Categories.Where(x => x.IsActive == true).ToList();
             if (keyword != "")
+            //if (!string.IsNullOrEmpty(keyword))
             {
                 ViewBag.NamePage = "Search product";
                 //ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true && x.Name.Contains(keyword)).ToList();
@@ -31,7 +39,11 @@ namespace CosmeticsShop.Controllers
                 lsproducts = db.Products.Where(x => x.IsActive == true && x.Name.Contains(keyword)).ToList();
 
             }
-            else if (CategoryID != 0)
+            
+            //{
+            //    lsproducts = db.Products.Where(x => x.IsActive == true).ToList();
+            //}
+            else if(CategoryID != 0)
             {
                 ViewBag.NamePage = "Category " + db.Categories.Find(CategoryID).Name;
                 //ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true && x.CategoryID == CategoryID).ToList();
@@ -51,6 +63,31 @@ namespace CosmeticsShop.Controllers
                 //ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true).OrderByDescending(x => x.Price).ToList();
                 lsproducts = db.Products.Where(x => x.IsActive == true).OrderByDescending(x => x.Price).ToList();
             }
+            else if (SortPrice == 3)
+            {
+                ViewBag.NamePage = "Giá Dưới 300 Ngàn";
+                //ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true).OrderByDescending(x => x.Price).ToList();
+                lsproducts = db.Products.Where(x => x.IsActive == true && x.Price < 300000).OrderBy(x => x.Price).ToList();
+            }
+            else if (SortPrice == 4)
+            {
+                ViewBag.NamePage = "Giá Từ 300 Ngàn Đến Dưới 700 Ngàn";
+                //ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true).OrderByDescending(x => x.Price).ToList();
+                lsproducts = db.Products.Where(x => x.IsActive == true && x.Price >= 300000 && x.Price < 700000).OrderBy(x => x.Price).ToList();
+            }
+            else if (SortPrice == 5)
+            {
+                ViewBag.NamePage = "Giá Từ 700 Ngàn Đến Dưới 1 Triệu";
+                //ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true).OrderByDescending(x => x.Price).ToList();
+                lsproducts = db.Products.Where(x => x.IsActive == true && x.Price >= 700000 && x.Price < 1000000).OrderBy(x => x.Price).ToList();
+            }
+            else if (SortPrice == 6)
+            {
+                ViewBag.NamePage = "Giá Trên 1 Triệu";
+                //ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true).OrderByDescending(x => x.Price).ToList();
+                lsproducts = db.Products.Where(x => x.IsActive == true && x.Price >= 1000000).OrderBy(x => x.Price).ToList();
+            }
+
             else
             {
                 ViewBag.NamePage = "All products";
@@ -58,12 +95,16 @@ namespace CosmeticsShop.Controllers
                 //products = db.Products.Where(x => x.IsActive == true).ToList();
                 lsproducts = db.Products.Where(x => x.IsActive == true).OrderByDescending(x => x.ID).ToList();
             }
+            ViewBag.currentSearch = keyword;
+            ViewBag.currentCate = CategoryID;
+            ViewBag.SortPrice = SortPrice;
 
             //int pageNumber = page;
             PagedList<Product> models = new PagedList<Product>(lsproducts.AsQueryable(), pageNumber, pageSize);
 
             //Trang hiện tại
             ViewBag.CurrentPage = pageNumber;
+            //return View(lsproducts.ToPagedList(pageNumber, pageSize));
             return View(models);
         }
 

@@ -4,34 +4,72 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
-<section class="page-add mb-2 px-3">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="page-breadcrumb">
-                    <h2>Tin tức nổi bật<span>.</span></h2>
-                    <a href="#">Trang chủ</a>
 
-                    <a class="active" href="#">Bài viết</a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-            </div>
-        </div>
-    </div>
-</section>
-<div class="container pt-5 w-100">
-    <h2 style="text-align: center;">@Model.Name</h2>
-    <img src="~/Content/images/@Model.Image" alt="picture" class="w-100 py-2" />
-    <div>@Html.Raw(Model.Description)</div>
 
-    <div class="d-flex flex-column">
-        <div>
-            <p style="color: #1e1e1e; font-weight: 600">Tác giả: @Model.User.Name</p>
-        </div>
-        <div>
-            <p style="color: #1e1e1e; font-weight: 600">Ngày viết</p>
-            <p>@Model.CreatedDate</p>
-        </div>
-    </div>
-</div>
+<div class="page-wrapper">
+
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Fullwidth With Sidebar</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="container">
+                <figure class="entry-media">
+                    <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl">
+                        <img src="~/Content/images/@Model.Image" alt="image desc">
+                        
+                    </div><!-- End .owl-carousel -->
+                </figure><!-- End .entry-media -->
+                <div class="row">
+                    <div class="">
+                        <article class="entry single-entry">
+                            <div class="entry-body">
+
+
+                                <h2 class="entry-title entry-title-big">
+                                    @Model.Name
+                                </h2><!-- End .entry-title -->
+
+
+
+                                <div class="entry-content editor-content">
+                                    @Html.Raw(Model.Description)
+                                </div><!-- End .entry-content -->
+
+
+                            </div><!-- End .entry-body -->
+
+
+                        </article><!-- End .entry -->
+
+
+                    </div><!-- End .col-lg-9 -->
+                    <div class="entry-meta">
+                        <span class="entry-author">
+                            Tác Giả <a href="#">@Model.User.Name</a>
+                        </span>
+                        <span class="meta-separator">|</span>
+                        <a href="#">@Model.CreatedDate</a>
+                        <span class="meta-separator">|</span>
+                        <a href="#">2 Comments</a>
+                    </div><!-- End .entry-meta -->
+
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+
+
+

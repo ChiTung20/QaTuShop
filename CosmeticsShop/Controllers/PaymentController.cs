@@ -262,8 +262,15 @@ namespace CosmeticsShop.Controllers
             {
                 ViewBag.message = "Thanh toán thành công";
                 Session["Cart"] = new List<ItemCart>();
-                
+                Session.Remove("Cart");
+                Session.Remove("OrderID");
+                //update paid
+                Models.Order order = db.Orders.Find(Convert.ToInt32(Session["OrderId"]));
+                order.IsPaid = true;
+                db.SaveChanges();
             }
+            
+            //return RedirectToAction("Message", "Cart", new { mess = "Đặt hàng và thanh toán thành công" });
             return View();
         }
 

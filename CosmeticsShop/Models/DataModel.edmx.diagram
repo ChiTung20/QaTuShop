@@ -7,7 +7,7 @@
       <Diagram DiagramId="0b8fe57f66ea41c0aa51596792d71e96" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="ShoppingModel.Category" Width="1.5" PointX="7.625" PointY="8.625" />
         <EntityTypeShape EntityType="ShoppingModel.Message" Width="1.5" PointX="2.25" PointY="7.875" />
-        <EntityTypeShape EntityType="ShoppingModel.OrderDetail" Width="1.5" PointX="9.875" PointY="4" />
+        <EntityTypeShape EntityType="ShoppingModel.OrderDetail" Width="1.5" PointX="9.875" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="ShoppingModel.Order" Width="1.5" PointX="2.875" PointY="3.625" />
         <EntityTypeShape EntityType="ShoppingModel.Product" Width="1.5" PointX="12" PointY="6.125" />
         <EntityTypeShape EntityType="ShoppingModel.UserType" Width="1.5" PointX="0.75" PointY="6" />
