@@ -15,26 +15,18 @@ namespace CosmeticsShop.Models
 using System;
     using System.Collections.Generic;
     
-public partial class Message
+public partial class sysdiagram
 {
 
-    public int ID { get; set; }
+    public string name { get; set; }
 
-    public Nullable<int> FromUserID { get; set; }
+    public int principal_id { get; set; }
 
-    public Nullable<int> ToUserID { get; set; }
+    public int diagram_id { get; set; }
 
-    public string Content { get; set; }
+    public Nullable<int> version { get; set; }
 
-    public Nullable<System.DateTime> CreatedDate { get; set; }
-
-    public Nullable<bool> Send { get; set; }
-
-
-
-    public virtual User User { get; set; }
-
-    public virtual User User1 { get; set; }
+    public byte[] definition { get; set; }
 
 }
 

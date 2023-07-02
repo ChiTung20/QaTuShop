@@ -54,7 +54,7 @@ namespace CosmeticsShop.Controllers
             {
                 user.Password = HashMD5.ToMD5(user.Password);
                 user.UserTypeID = 2;
-                user.Address = "TPHCM";
+                //user.Address = "TPHCM";
                 user.Avatar = "avatar.jpg";
                 userAdded = db.Users.Add(user);
                 db.SaveChanges();
@@ -68,6 +68,7 @@ namespace CosmeticsShop.Controllers
             return View();
             //return RedirectToAction("ConfirmEmail", "User", new { ID = userAdded.ID });
         }
+
         public ActionResult SignIn()
         {
             return View();

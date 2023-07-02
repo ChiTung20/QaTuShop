@@ -40,10 +40,13 @@
                                 if (user != null)
                                 {
                                     <div class="image">
-                                        <img style="width: 40px; height:40px" src="~/Content/images/@user.Avatar" class="img-circle elevation-2" alt="User Image">
+                                        <a href="/UserManage/Infor">
+                                            <img style="width: 40px; height:40px" src="~/Content/images/@user.Avatar" class="img-circle elevation-2" alt="User Image">
+                                        </a>
+
                                     </div>
                                     <div class="info">
-                                        <a href="" class="d-block">@user.UserType.Name</a>
+                                        <a  href="/UserManage/Infor" class="d-block">@user.Name</a>
                                     </div>
                                 }
                             }
@@ -80,7 +83,20 @@
                                 </li>
                             </ul>
                         </li>
-
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fa-solid fa-user"></i>
+                                <span>Tài Khoản</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="/UserManage/Index">Tài Khoản</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="/UserTypeManage/Index">Loại Tài Khoản</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="sidebar-item">
                             <a href="/SlideManage/Index" class='sidebar-link'>
                                 <i class="fa-solid fa-tower-cell"></i>
@@ -94,7 +110,7 @@
                             </a>
                         </li>
 
-                        @*<li class="sidebar-item">
+                        <li class="sidebar-item">
                             <a href="/Chat/" class='sidebar-link'>
                                 <i class="fa-solid fa-comments"></i>
                                 <span>Chat</span>
@@ -118,7 +134,7 @@
                                     <a href="@Url.Action("SalesRevenue","Statistic",new { from=DateTime.Now,to=DateTime.Now})">Doanh thu</a>
                                 </li>
                             </ul>
-                        </li>*@
+                        </li>
                         <li class="sidebar-item">
                             <a href="/Home/SignOut" class='sidebar-link'>
                                 <i class="fa-solid fa-right-from-bracket"></i>

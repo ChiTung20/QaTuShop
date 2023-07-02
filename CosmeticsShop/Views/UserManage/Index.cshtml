@@ -1,0 +1,98 @@
+﻿@model IEnumerable<CosmeticsShop.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Quản lý tài khoản</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                @if (string.IsNullOrEmpty(Request.Params["keyword"]))
+                {
+                    <h3 class="card-title">Danh sách tài khoản</h3>
+                }
+                else
+                {
+                    <h3 class="card-title">Danh sách tài khoản với từ khóa "@Request.Params["keyword"]"</h3>
+                }
+                <div class="card-tools">
+                    <form action="/UserManage/" method="get">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="keyword" class="form-control float-right" placeholder="Tìm kiếm..." required>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                    <a href="/UserManage/SignUp" class="btn btn-outline-success col-2">Thêm mới</a>
+                </div>
+
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>Địa Chỉ</th>
+                            <th>Loại Tài Khoản</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.ID</td>
+                                    <td>@item.Name</td>
+
+                                    <td>@item.Email</td>
+                                    <td>@item.Address</td>
+                                    @if (item.UserTypeID.Value >= 2)
+                                    {
+                                        <td><span class="badge bg-success">@item.UserType.Name</span></td>
+                                    }
+                                    else if (item.UserTypeID.Value == 1)
+                                    {
+                                        <td><span class="badge bg-danger">Admin</span></td>
+                                    }
+
+                                <td>
+                                    <button class="btn btn-primary" onclick="location.href='/UserManage/Details/@item.ID'">Chi tiết/Sửa</button>
+                                    <button class="btn btn-danger" onclick="location.href='/UserManage/Delete/@item.ID'">Xoá</button>
+                                </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    Không tìm thấy tài khoản nào...
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

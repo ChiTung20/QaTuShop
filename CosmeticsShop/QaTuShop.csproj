@@ -244,6 +244,8 @@
     <Compile Include="Controllers\StatisticController.cs" />
     <Compile Include="Controllers\SlideManageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserManagerController.cs" />
+    <Compile Include="Controllers\UserTypeManageController.cs" />
     <Compile Include="Extensions\HashMD5.cs" />
     <Compile Include="Extensions\MomoSecurity.cs" />
     <Compile Include="Extensions\PaymentRequest.cs" />
@@ -252,6 +254,9 @@
     </Compile>
     <Compile Include="Hubs\ChatHubs.cs" />
     <Compile Include="Models\Category.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataModel.Context.cs">
@@ -285,6 +290,9 @@
     <Compile Include="Models\Slide.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -293,6 +301,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\CommentViewModel.cs" />
+    <Compile Include="ViewModel\ProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\css\style.css" />
@@ -5801,6 +5811,16 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\UserManage\Index.cshtml" />
+    <Content Include="Views\UserManage\Delete.cshtml" />
+    <Content Include="Views\UserTypeManage\Index.cshtml" />
+    <Content Include="Views\UserTypeManage\Add.cshtml" />
+    <Content Include="Views\UserTypeManage\Details.cshtml" />
+    <Content Include="Views\UserTypeManage\Delete.cshtml" />
+    <Content Include="Views\UserManage\Details.cshtml" />
+    <Content Include="Views\UserManage\SignUp.cshtml" />
+    <Content Include="Views\UserManage\SignUpAdmin.cshtml" />
+    <Content Include="Views\UserManage\Infor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

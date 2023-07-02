@@ -7,12 +7,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Razor.Tokenizer.Symbols;
 using System.IO;
+using Model.ViewModel;
 
 namespace CosmeticsShop.Controllers
 {
     public class ProductController : Controller
     {
+
         ShoppingEntities db = new ShoppingEntities();
+ 
         // GET: Product
         public ActionResult Index(int CategoryID = 0, string keyword = "", int SortPrice = 0, int? page = 1, string currentSearch = "")
         {
@@ -29,7 +32,7 @@ namespace CosmeticsShop.Controllers
             {
                 keyword = currentSearch;
             }
-            ViewBag.ListCategory = db.Categories.Where(x => x.IsActive == true).ToList();
+            ViewBag.ListCategory = db.Categories.Where(x => x.IsActive == true).ToList();           
             if (keyword != "")
             //if (!string.IsNullOrEmpty(keyword))
             {
@@ -39,11 +42,7 @@ namespace CosmeticsShop.Controllers
                 lsproducts = db.Products.Where(x => x.IsActive == true && x.Name.Contains(keyword)).ToList();
 
             }
-            
-            //{
-            //    lsproducts = db.Products.Where(x => x.IsActive == true).ToList();
-            //}
-            else if(CategoryID != 0)
+            else if (CategoryID != 0)
             {
                 ViewBag.NamePage = "Category " + db.Categories.Find(CategoryID).Name;
                 //ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true && x.CategoryID == CategoryID).ToList();
@@ -103,21 +102,34 @@ namespace CosmeticsShop.Controllers
             PagedList<Product> models = new PagedList<Product>(lsproducts.AsQueryable(), pageNumber, pageSize);
 
             //Trang hiện tại
-            ViewBag.CurrentPage = pageNumber;
+            ViewBag.CurrentPage = pageNumber;  
             //return View(lsproducts.ToPagedList(pageNumber, pageSize));
             return View(models);
         }
 
-        public ActionResult Details(int ID)
+        public ActionResult Details(int ID/*, int detailid*/)
         {
-            Product product = db.Products.Find(ID);
+            Product product = db.Products.Find(ID);          
             return View(product);
         }
+
+
+        [HttpPost]
+        public ActionResult AddComment(Comment comments)
+        {
+            Comment cmm =db.Comments.Add(comments);
+            db.SaveChanges();
+            ViewBag.Message = "Thêm thành công";
+            return View("Details", cmm);
+        }
+      
         public ActionResult RemoveProduct(int ID)
         {
             Product product = db.Products.Find(ID);
             db.Products.Remove(product);
             return View(product);
         }
+
+
     }
 }

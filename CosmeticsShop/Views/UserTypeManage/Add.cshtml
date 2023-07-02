@@ -1,0 +1,43 @@
+﻿@model CosmeticsShop.Models.UserType
+
+@{
+    ViewBag.Title = "Thêm mới";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Thêm mới</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">      
+                <div class="card card-primary">
+                    @using (Html.BeginForm("Add", "UserTypeManage", FormMethod.Post))
+                    {
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Tên</label>
+                                <input type="text" class="form-control" required name="Name">
+                            </div>                          
+                            <div class="form-group">
+                                <label>Mô tả Loại Tài Khoản</label>
+                                <textarea class="form-control"required name="Description"> </textarea>
+                            </div>                          
+                        </div>
+                        <div class="card-footer">
+                            <a href="/UserTypeManage/" class="btn btn-light-secondary">Trở lại</a>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

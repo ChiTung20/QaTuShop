@@ -13,6 +13,18 @@
           <Property Name="Name" Type="nvarchar" MaxLength="256" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentMsg" Type="nvarchar(max)" />
+          <Property Name="CommentDate" Type="datetime" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Rate" Type="int" />
+        </EntityType>
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="ID" />
@@ -65,6 +77,7 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="CategoryID" Type="int" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="CommentID" Type="int" />
         </EntityType>
         <EntityType Name="Slides">
           <Key>
@@ -80,6 +93,16 @@
           <Property Name="CreatedBy" Type="int" />
           <Property Name="Status" Type="bit" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -92,6 +115,7 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="Avatar" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="isActive" Type="bit" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -99,6 +123,9 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="Condition" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK__Message__FromUse__36B12243">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
@@ -148,7 +175,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__UserID__4316F928">
+        <Association Name="FK__Orders__UserID__35BCFE0A">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -184,7 +211,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__UserTypeI__45F365D3">
+        <Association Name="FK__Users__UserTypeI__398D8EEE">
           <End Role="UserType" Type="Self.UserType" Multiplicity="0..1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -193,6 +220,18 @@
             </Principal>
             <Dependent Role="Users">
               <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Comments">
+          <End Role="Comments" Type="Self.Comments" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comments">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CommentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -210,11 +249,13 @@
         </Association>
         <EntityContainer Name="ShoppingModelStoreContainer">
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slides" EntityType="Self.Slides" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Message__FromUse__36B12243" Association="Self.FK__Message__FromUse__36B12243">
@@ -233,7 +274,7 @@
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__UserID__4316F928" Association="Self.FK__Orders__UserID__4316F928">
+          <AssociationSet Name="FK__Orders__UserID__35BCFE0A" Association="Self.FK__Orders__UserID__35BCFE0A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
@@ -245,9 +286,13 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__UserTypeI__45F365D3" Association="Self.FK__Users__UserTypeI__45F365D3">
+          <AssociationSet Name="FK__Users__UserTypeI__398D8EEE" Association="Self.FK__Users__UserTypeI__398D8EEE">
             <End Role="UserType" EntitySet="UserType" />
             <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Comments" Association="Self.FK_Products_Comments">
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_Slides_Users" Association="Self.FK_Slides_Users">
             <End Role="Users" EntitySet="Users" />
@@ -302,6 +347,12 @@
           <AssociationSet Name="FK_Slides_Users" Association="ShoppingModel.FK_Slides_Users">
             <End Role="User" EntitySet="Users" />
             <End Role="Slide" EntitySet="Slides" />
+          </AssociationSet>
+          <EntitySet Name="Comments" EntityType="ShoppingModel.Comment" />
+          <EntitySet Name="sysdiagrams" EntityType="ShoppingModel.sysdiagram" />
+          <AssociationSet Name="FK_Products_Comments" Association="ShoppingModel.FK_Products_Comments">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Category">
@@ -374,6 +425,8 @@
           <NavigationProperty Name="OrderDetails" Relationship="ShoppingModel.FK__OrderDeta__Produ__24927208" FromRole="Product" ToRole="OrderDetail" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="ShoppingModel.FK__Products__Create__276EDEB3" FromRole="Product" ToRole="User" />
+          <Property Name="CommentID" Type="Int32" />
+          <NavigationProperty Name="Comment" Relationship="ShoppingModel.FK_Products_Comments" FromRole="Product" ToRole="Comment" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -382,6 +435,9 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="ShoppingModel.FK__Users__UserTypeI__45F365D3" FromRole="UserType" ToRole="User" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="Condition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Products__Catego__239E4DCF">
           <End Type="ShoppingModel.Category" Role="Category" Multiplicity="0..1" />
@@ -437,6 +493,7 @@
           <NavigationProperty Name="Products" Relationship="ShoppingModel.FK__Products__Create__276EDEB3" FromRole="User" ToRole="Product" />
           <NavigationProperty Name="UserType" Relationship="ShoppingModel.FK__Users__UserTypeI__45F365D3" FromRole="User" ToRole="UserType" />
           <NavigationProperty Name="Slides" Relationship="ShoppingModel.FK_Slides_Users" FromRole="User" ToRole="Slide" />
+          <Property Name="isActive" Type="Boolean" />
         </EntityType>
         <Association Name="FK__Message__FromUse__36B12243">
           <End Type="ShoppingModel.User" Role="User" Multiplicity="0..1" />
@@ -525,6 +582,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CommentDate" Type="DateTime" Precision="3" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Rate" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="ShoppingModel.FK_Products_Comments" FromRole="Comment" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Products_Comments">
+          <End Type="ShoppingModel.Comment" Role="Comment" Multiplicity="0..1" />
+          <End Type="ShoppingModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CommentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -580,6 +672,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="ShoppingModel.Product">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
@@ -600,6 +693,9 @@
           <EntitySetMapping Name="UserTypes">
             <EntityTypeMapping TypeName="ShoppingModel.UserType">
               <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="Condition" ColumnName="Condition" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -608,6 +704,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ShoppingModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -631,6 +728,30 @@
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="ShoppingModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+                <ScalarProperty Name="CommentMsg" ColumnName="CommentMsg" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ShoppingModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

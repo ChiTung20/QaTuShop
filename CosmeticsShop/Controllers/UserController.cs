@@ -30,7 +30,7 @@ namespace CosmeticsShop.Controllers
         }
         public ActionResult CheckoutOrder()
         {
-            if (CheckRole("Client"))
+            if (CheckRole("Khách Hàng"))
             {
 
             }
@@ -44,7 +44,7 @@ namespace CosmeticsShop.Controllers
         }
         public ActionResult OrderDetails(int ID)
         {
-            if (CheckRole("Client"))
+            if (CheckRole("Khách Hàng"))
             {
 
             }
