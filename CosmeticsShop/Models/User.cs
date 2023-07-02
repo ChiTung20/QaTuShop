@@ -53,6 +53,8 @@ public partial class User
 
     public Nullable<bool> isActive { get; set; }
 
+    public string OTPRecords { get; set; }
+
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

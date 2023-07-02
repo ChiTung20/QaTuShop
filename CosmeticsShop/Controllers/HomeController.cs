@@ -35,39 +35,39 @@ namespace CosmeticsShop.Controllers
         {
             return View();
         }
-        public ActionResult SignUp()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult SignUp(Models.User user)
-        {
-            Models.User check = db.Users.SingleOrDefault(x => x.Email == user.Email);
-            if (check != null)
-            {
-                ViewBag.Message = "Email đã tồn tại";
-                return View();
-            }
+        //public ActionResult SignUp()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public ActionResult SignUp(Models.User user)
+        //{
+        //    Models.User check = db.Users.SingleOrDefault(x => x.Email == user.Email);
+        //    if (check != null)
+        //    {
+        //        ViewBag.Message = "Email đã tồn tại";
+        //        return View();
+        //    }
            
-            Models.User userAdded = new Models.User();
-            try
-            {
-                user.Password = HashMD5.ToMD5(user.Password);
-                user.UserTypeID = 2;
-                //user.Address = "TPHCM";
-                user.Avatar = "avatar.jpg";
-                userAdded = db.Users.Add(user);
-                db.SaveChanges();
-            }
-            catch (Exception)
-            {
-                ViewBag.Message = "Đăng ký thất bại";
-                return View();
-            }
-            ViewBag.Message = "Đăng ký thành công";
-            return View();
-            //return RedirectToAction("ConfirmEmail", "User", new { ID = userAdded.ID });
-        }
+        //    Models.User userAdded = new Models.User();
+        //    try
+        //    {
+        //        user.Password = HashMD5.ToMD5(user.Password);
+        //        user.UserTypeID = 2;
+        //        //user.Address = "TPHCM";
+        //        user.Avatar = "avatar.jpg";
+        //        userAdded = db.Users.Add(user);
+        //        db.SaveChanges();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        ViewBag.Message = "Đăng ký thất bại";
+        //        return View();
+        //    }
+        //    ViewBag.Message = "Đăng ký thành công";
+        //    return View();
+        //    //return RedirectToAction("ConfirmEmail", "User", new { ID = userAdded.ID });
+        //}
 
         public ActionResult SignIn()
         {
@@ -145,5 +145,267 @@ namespace CosmeticsShop.Controllers
         {
             return View();
         }
+
+        public ActionResult GetOTP()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GetOTP(string recipientEmail)
+        {
+            if (string.IsNullOrEmpty(recipientEmail))
+            {
+                ModelState.AddModelError("", "Please enter a valid email address.");
+                return View();
+            }
+
+            // Kiểm tra tính hợp lệ của địa chỉ email (định dạng Gmail)
+            if (!ForgotPassword.IsValidGmailAddress(recipientEmail))
+            {
+                ModelState.AddModelError("", "Please enter a valid Gmail address.");
+                return View();
+            }
+
+            // Tạo mã OTP ngẫu nhiên
+            string otp = ForgotPassword.GenerateOTP();
+
+            // Lưu mã OTP vào cơ sở dữ liệu
+            ForgotPassword.SaveOTPToDatabase(recipientEmail, otp);
+
+            // Gửi mã OTP đến người dùng qua email
+            string subject = "Xác minh OTP";
+            string body = $"Mã OTP của bạn là: {otp}";
+
+            ForgotPassword.SendEmail(recipientEmail, subject, body);
+
+            ViewBag.OTP = recipientEmail;
+
+            // Chuyển hướng đến trang xác thực OTP
+            return View();
+        }
+        // xác minh OTP
+        public ActionResult ExampleUsage(string otp)
+        {
+            var user = db.Users.FirstOrDefault(u => u.OTPRecords == otp);// Lấy người dùng đầu tiên trong danh sách, bạn có thể điều chỉnh truy vấn tùy theo cấu trúc cơ sở dữ liệu của bạn
+            if (user != null)
+            {
+                string userEmail = user.Email; // Địa chỉ email người dùng từ cơ sở dữ liệu
+
+                if (ForgotPassword.VerifyOTP(userEmail, otp))
+                {
+                    //lấy TempData để tí nữa xử lý phần ResetPassword
+                    TempData["OTP"] = otp;
+                    ViewBag.Message = "Thành công";
+                    return RedirectToAction("ResetPassword");
+                }
+                else
+                {
+                    ViewBag.Message = "Người dùng không tồn tại trong cơ sở dữ liệu.";
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Người dùng không tồn tại trong cơ sở dữ liệu.";
+                return View();
+            }
+        }
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ResetPassword(string email, string newPassword, string confirmPassword)
+        {
+            string otp = TempData["OTP"] as string;
+
+            if (newPassword != confirmPassword)
+            {
+                ViewBag.ErrorMessage = "Password and Confirm Password do not match";
+                ViewBag.ShowResetForm = true;
+                ViewBag.Email = email;
+                return View("ForgotPassword");
+            }
+
+            var user = db.Users.FirstOrDefault(u => u.OTPRecords == otp);
+            if (user != null)
+            {
+                // cập nhật mật khẩu mới
+                user.Password = HashMD5.ToMD5(newPassword);
+                db.SaveChanges();
+
+                User check = db.Users.SingleOrDefault(x => x.OTPRecords == otp);
+                if (check != null)
+                {
+                    Session["User"] = check;
+                    if (check.UserTypeID == 1)
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                // Chuyển hướng đến trang thành công
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.ShowResetForm = false;
+                return View("ForgotPassword");
+            }
+        }
+        //đăng ký với mã otp
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(string recipientEmail, Models.User user)
+        {
+            Models.User check = db.Users.SingleOrDefault(x => x.Email == user.Email);
+            if (check != null)
+            {
+                ViewBag.Message = "Email đã tồn tại";
+                return View();
+            }
+            if (!ForgotPassword.IsValidGmailAddress(recipientEmail))
+            {
+                ModelState.AddModelError("", "Please enter a valid Gmail address.");
+                ViewBag.Invalid = "lỗi";
+                return View();
+            }
+            LoginWithGmail.SaveEmailToDatabase(recipientEmail);
+            // Tạo mã OTP ngẫu nhiên
+            string otp = ForgotPassword.GenerateOTP();
+
+            // Lưu mã OTP vào cơ sở dữ liệu
+            ForgotPassword.SaveOTPToDatabase(recipientEmail, otp);
+
+            // Gửi mã OTP đến người dùng qua email
+            string subject = "Xác minh OTP";
+            string body = $"Mã OTP của bạn là: {otp}";
+
+            ForgotPassword.SendEmail(recipientEmail, subject, body);
+
+            ViewBag.OTP = recipientEmail;
+
+            // Chuyển hướng đến trang xác thực OTP
+            return View();
+
+        }
+
+
+       
+        [HttpPost]
+        public ActionResult UpdatePassword(string otp)
+        {
+            var user = db.Users.FirstOrDefault(u => u.OTPRecords == otp);
+            if (ModelState.IsValid)
+            {
+                string userEmail = user.Email;
+                // Kiểm tra xác thực OTP và lưu mật khẩu mới vào cơ sở dữ liệu
+                if (ForgotPassword.VerifyOTP(userEmail, otp))
+                {
+                    if (user != null)
+                    {
+                        TempData["OTP"] = otp;
+                        ViewBag.Message = "Thành công";
+
+                        return RedirectToAction("PasswordUpdated");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "OTP không hợp lệ. Vui lòng thử lại.");
+                }
+            }
+
+            return View();
+        }
+        public ActionResult PasswordUpdated()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult PasswordUpdated(string newPassword)
+        {
+            string otp = TempData["OTP"] as string;
+
+            var user = db.Users.FirstOrDefault(u => u.OTPRecords == otp);
+            if (user != null)
+            {
+                Models.User userAdded = new Models.User();
+                // cập nhật mật khẩu
+                user.UserTypeID = 2;
+                user.Avatar = "avatar.jpg";
+                user.Password = HashMD5.ToMD5(newPassword);
+                userAdded = db.Users.Add(user);
+                db.SaveChanges();
+
+                User check = db.Users.SingleOrDefault(x => x.OTPRecords == otp);
+                if (check != null)
+                {
+                    Session["User"] = check;
+                    if (check.UserTypeID == 1)
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                //    Models.User userAdded = new Models.User();
+                //    try
+                //    {
+                //        user.Password = HashMD5.ToMD5(user.Password);
+                //        user.UserTypeID = 2;
+                //        //user.Address = "TPHCM";
+                //        user.Avatar = "avatar.jpg";
+                //        userAdded = db.Users.Add(user);
+                //        db.SaveChanges();
+                //    }
+                //    catch (Exception)
+                //    {
+                //        ViewBag.Message = "Đăng ký thất bại";
+                //        return View();
+                //    }
+                //    ViewBag.Message = "Đăng ký thành công";
+                //    return View();
+
+                // Chuyển hướng đến trang thành công
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.ShowResetForm = false;
+                return View("ForgotPassword");
+            }
+        }
+
+        //public ActionResult SignUp(Models.User user)
+        //{
+        //    Models.User check = db.Users.SingleOrDefault(x => x.Email == user.Email);
+        //    if (check != null)
+        //    {
+        //        ViewBag.Message = "Email đã tồn tại";
+        //        return View();
+        //    }
+
+        //    Models.User userAdded = new Models.User();
+        //    try
+        //    {
+        //        user.Password = HashMD5.ToMD5(user.Password);
+        //        user.UserTypeID = 2;
+        //        //user.Address = "TPHCM";
+        //        user.Avatar = "avatar.jpg";
+        //        userAdded = db.Users.Add(user);
+        //        db.SaveChanges();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        ViewBag.Message = "Đăng ký thất bại";
+        //        return View();
+        //    }
+        //    ViewBag.Message = "Đăng ký thành công";
+        //    return View();
+        //    //return RedirectToAction("ConfirmEmail", "User", new { ID = userAdded.ID });
+        //}
     }
 }

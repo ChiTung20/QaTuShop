@@ -1,11 +1,13 @@
 ﻿using CosmeticsShop.Extensions;
 using CosmeticsShop.Models;
 using DocumentFormat.OpenXml.EMMA;
+using Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -92,28 +94,58 @@ namespace CosmeticsShop.Controllers
             Session["User"] = u;
             return View(user);
         }
-        [HttpPost]
-        public ActionResult ChangePassword(User user, string OldPassword, string Password)
-        {
-            var u = db.Users.Find((Session["User"] as Models.User).ID);
-            if (u == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+        //[HttpPost]
+        //public ActionResult ChangePassword(User user, string OldPassword, string Password)
+        //{
+        //    var u = db.Users.Find((Session["User"] as Models.User).ID);
+        //    if (u == null)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
 
-            if (ModelState.IsValid)
+        //    {
+
+        //        var pass = user.Password;
+        //        if (pass == HashMD5.ToMD5(OldPassword))
+        //        {
+        //            string passnew = (HashMD5.ToMD5(Password));
+        //            u.Password = passnew;
+        //            db.SaveChanges();
+        //            ViewBag.Message("Đổi mật khẩu thành công");
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //    }
+        //    ViewBag.Message("Thay đổi mật khẩu không thành công");
+        //    return RedirectToAction("SignIn", "Home");
+        //}
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+            try
             {
-               
-                var pass = user.Password;
-                if (pass == HashMD5.ToMD5(OldPassword)){
-                    string passnew = (HashMD5.ToMD5(Password));
-                    u.Password = passnew;
-                    db.SaveChanges();
-                    ViewBag.Message("Đổi mật khẩu thành công");                 
+                var u = db.Users.Find((Session["User"] as Models.User).ID);
+                if (u == null)
+                {
                     return RedirectToAction("Index", "Home");
                 }
+
             }
-            ViewBag.Message("Thay đổi mật khẩu không thành công");
+            //var u = db.Users.Find((Session["User"] as Models.User).ID);
+            
+            //{
+
+            //    var pass = user.Password;
+            //    if (pass == HashMD5.ToMD5(OldPassword))
+            //    {
+            //        string passnew = (HashMD5.ToMD5(Password));
+            //        u.Password = passnew;
+            //        db.SaveChanges();
+            //        ViewBag.Message("Đổi mật khẩu thành công");
+            //        return RedirectToAction("Index", "Home");
+            //    }
+            //}
+            //ViewBag.Message("Thay đổi mật khẩu không thành công");
             return RedirectToAction("SignIn", "Home");
         }
     }

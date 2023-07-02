@@ -116,6 +116,7 @@
           <Property Name="Avatar" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="500" />
           <Property Name="isActive" Type="bit" />
+          <Property Name="OTPRecords" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -494,6 +495,7 @@
           <NavigationProperty Name="UserType" Relationship="ShoppingModel.FK__Users__UserTypeI__45F365D3" FromRole="User" ToRole="UserType" />
           <NavigationProperty Name="Slides" Relationship="ShoppingModel.FK_Slides_Users" FromRole="User" ToRole="Slide" />
           <Property Name="isActive" Type="Boolean" />
+          <Property Name="OTPRecords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Message__FromUse__36B12243">
           <End Type="ShoppingModel.User" Role="User" Multiplicity="0..1" />
@@ -704,6 +706,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ShoppingModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="OTPRecords" ColumnName="OTPRecords" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
