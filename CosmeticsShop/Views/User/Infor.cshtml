@@ -43,7 +43,7 @@
                             </div>
                             <div>
                                 <button class="btn btn-primary" type="submit">Lưu</button>
-                                <button class="btn btn-light">Cancel</button>
+                                <a href="/" class="btn btn-light-secondary">Cancel</a>
                             </div>
                         </div>
 
@@ -58,7 +58,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Old password</label>
+                                    <label>Mật khẩu cũ</label>
                                     <input type="password" name="OldPassword" class="form-control">
                                 </div>
                             </div>
@@ -66,20 +66,20 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>New password</label>
-                                    <input type="password" name="Password" class="form-control">
+                                    <label>Mật khẩu mới</label>
+                                    <input type="password" name="NewPassword" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Confirm new password</label>
+                                    <label>Nhập lại mật khẩu mới</label>
                                     <input type="password" required oninput="check(this)" class="form-control">
                                 </div>
                             </div>
                         </div>
                         <div>
                             <button class="btn btn-primary" type="submit">Lưu</button>
-                            <button class="btn btn-light" type="reset" >Cancel</button>
+                            <a href="/" class="btn btn-light-secondary">Trở lại</a>
                         </div>
                     }
                 </div>
@@ -88,10 +88,10 @@
                     <div>
                         <div class="py-2">
                             <div class="navbar-nav d-flex flex-row">
-                                <a class="nav-item nav-link active badge badge-light p-0 px-2 py-2" href="#processing" data-toggle="tab">Chưa duyệt</a>
-                                <a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href=" #processed" data-toggle="tab">Đã duyệt</a>
-                                <a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href="#delivering" data-toggle="tab">Đang giao hàng</a>
-                                <a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href="#complete" data-toggle="tab">Hoàn thành</a>
+                                <h5><a class="nav-item nav-link active badge badge-light p-0 px-2 py-2" href="#processing" data-toggle="tab">Chưa duyệt</a></h5>
+                                <h5><a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href=" #processed" data-toggle="tab">Đã duyệt</a></h5>
+                                <h5><a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href="#delivering" data-toggle="tab">Đang giao hàng</a></h5>
+                                <h5><a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href="#complete" data-toggle="tab">Hoàn thành</a></h5>
                             </div>
                         </div>
                         <div class="tab-content">

@@ -26,7 +26,7 @@
                             type: 'GET',
                             dataType: 'json',
                             success: function (response) {
-                                $(".simpleCart_total").html("$"+response.TotalPrice + "(" + response.TotalQuantity + ")")
+                                $(".simpleCart_total").html("$" + response.TotalPrice + "(" + response.TotalQuantity + ")")
                             },
                         });
                     } else {
@@ -37,48 +37,25 @@
         })
     });
 </script>
-<section class="page-add mb-2 px-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="page-breadcrumb">
-                    <h2>Gợi ý<span>.</span></h2>
-                    <a href="#">Trang chủ</a>
 
-                    <a class="active" href="#">Gợi ý</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+    <div class="container">
+        <h1 class="page-title">Gợi Ý Sản Phẩm</h1>
+    </div><!-- End .container -->
+</div><!-- End .page-header -->
+<nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="">Gợi Ý Sản Phẩm</a></li>
+        </ol>
+    </div><!-- End .container -->
+</nav><!-- End .breadcrumb-nav -->
 <!--content-->
 
 <div class="products">
     <div class="container">
-        <!--categories-->
-        <div class="categories-controls">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="categories-filter">
-                        <div class="cf-left">
-                            <form action="#">
-                                <select class="sort" onchange="javascrip: location.href = this.value">
-                                    <option value="">Chọn</option>
-
-                                    @foreach (var item in categories)
-                                    {
-                                        <option value="/Product/Index?CategoryID=@item.ID">@item.Name</option>
-
-                                    }
-
-                                </select>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        <!--categories-->       
         <!-- end categories-->
         <div class="alert alert-light border-dark w-50">
             <h4 class="alert-heading">Gợi ý một số sản phẩm phù hợp với bạn</h4>
@@ -93,22 +70,26 @@
                     int count = 1;
                     for (int i = count - 1; i < products.Count; i++)
                     {
-                        <div class="col-lg-3 col-sm-6 mix all">
-                            <div class="single-product-item">
-                                <figure>
-                                    <a href="/Product/Details/@products[i].ID"><img src="~/Content/images/@products[i].Image1" alt=""></a>
-                                    <div class="p-status">new</div>
-                                </figure>
-                                <div class="product-text">
-                                    <h6>@products[i].Name</h6>
-                                    <p>Đã bán: @products[i].PurchasedCount (Còn lại @products[i].Quantity)</p>
-                                    <p>@products[i].Price.Value.ToString("#,##")₫ -  <a href="#" class="item_add" data-id="@products[i].ID"><img src="~/Content/images/cart.png" alt="" /></a></p>
-                                    <div class="clearfix"> </div>
-                                </div>
+                        <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                            <div class="product">
+                                <figure class="product-media">
+                                    @*<span class="product-label label-new">New</span>*@
+                                    <a href="/Product/Details/@products[i].ID">
+                                        <img src="~/Content/images/@products[i].Image1" alt="Product image" class="product-image">
+                                    </a>
+                                    <div class="product-action action-icon-top">
+                                        <a href="#" class="btn-product btn-cart item_add" data-id="@products[i].ID"><span>Thêm Vào Giỏ Hàng</span></a>
+                                    </div><!-- End .product-action -->
+                                </figure><!-- End .product-media -->
+                                <div class="product-body">
+                                    <h3 class="product-title"><a href="/Product/Details/@products[i].ID">@products[i].Name (Kho: @products[i].Quantity)</a></h3><!-- End .product-title -->
+                                    <div class="product-price">
+                                        @products[i].Price.Value.ToString("#,##")₫
+                                    </div><!-- End .product-price -->
 
-                            </div>
-                            <div class="clearfix"> </div>
-                        </div>
+                                </div><!-- End .product-body -->
+                            </div><!-- End .product -->
+                        </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
                     }
                 }
                 else

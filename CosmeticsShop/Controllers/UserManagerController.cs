@@ -204,28 +204,28 @@ namespace CosmeticsShop.Controllers
             u.Address = user.Address;
             u.Email = user.Email;
             u.Phone = user.Phone;
-            for (int i = 0; i < ImageUpload.Length; i++)
-            {
-                //Check content image
-                if (ImageUpload[i] != null && ImageUpload[i].ContentLength > 0)
-                {
-                    //Get file name
-                    var fileName = Path.GetFileName(ImageUpload[i].FileName);
-                    //Get path
-                    var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
-                    //Check exitst
-                    if (!System.IO.File.Exists(path))
-                    {
-                        //Add image into folder
-                        ImageUpload[i].SaveAs(path);
-                    }
-                }
-            }
+            //for (int i = 0; i < ImageUpload.Length; i++)
+            //{
+            //    //Check content image
+            //    if (ImageUpload[i] != null && ImageUpload[i].ContentLength > 0)
+            //    {
+            //        //Get file name
+            //        var fileName = Path.GetFileName(ImageUpload[i].FileName);
+            //        //Get path
+            //        var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+            //        //Check exitst
+            //        if (!System.IO.File.Exists(path))
+            //        {
+            //            //Add image into folder
+            //            ImageUpload[i].SaveAs(path);
+            //        }
+            //    }
+            //}
 
-            if (ImageUpload[0] != null)
-            {
-                u.Avatar = ImageUpload[0].FileName;
-            }
+            //if (ImageUpload[0] != null)
+            //{
+            //    u.Avatar = ImageUpload[0].FileName;
+            //}
             db.SaveChanges();
             ViewBag.Message = "Cập nhật thành công!";
             Session["User"] = u;
