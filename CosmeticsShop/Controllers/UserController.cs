@@ -118,35 +118,6 @@ namespace CosmeticsShop.Controllers
         //    ViewBag.Message("Thay đổi mật khẩu không thành công");
         //    return RedirectToAction("SignIn", "Home");
         //}
-
-        [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordViewModel model)
-        {
-            try
-            {
-                var u = db.Users.Find((Session["User"] as Models.User).ID);
-                if (u == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
-            }
-            //var u = db.Users.Find((Session["User"] as Models.User).ID);
-            
-            //{
-
-            //    var pass = user.Password;
-            //    if (pass == HashMD5.ToMD5(OldPassword))
-            //    {
-            //        string passnew = (HashMD5.ToMD5(Password));
-            //        u.Password = passnew;
-            //        db.SaveChanges();
-            //        ViewBag.Message("Đổi mật khẩu thành công");
-            //        return RedirectToAction("Index", "Home");
-            //    }
-            //}
-            //ViewBag.Message("Thay đổi mật khẩu không thành công");
-            return RedirectToAction("SignIn", "Home");
-        }
+       
     }
 }

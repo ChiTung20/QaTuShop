@@ -39,6 +39,14 @@ public partial class Order
 
     public Nullable<bool> IsPaid { get; set; }
 
+    public string ShipName { get; set; }
+
+    public string ShipAddress { get; set; }
+
+    public string ShipEmail { get; set; }
+
+    public string ShipMobile { get; set; }
+
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

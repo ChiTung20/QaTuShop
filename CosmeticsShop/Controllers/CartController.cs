@@ -112,11 +112,15 @@ namespace CosmeticsShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddOrder(string payment = "")
+        public ActionResult AddOrder(string payment = "", string shipName="", string mobile = "", string address = "", string email = "")
         {
             Models.User user = Session["User"] as Models.User;
             //Add order
             Models.Order order = new Models.Order();
+            order.ShipName = shipName;
+            order.ShipMobile = mobile;
+            order.ShipAddress = address;
+            order.ShipEmail = email;
             order.DateOrder = DateTime.Now;
             order.DateShip = DateTime.Now.AddDays(3);
             order.Status = "Processing";
@@ -164,6 +168,10 @@ namespace CosmeticsShop.Controllers
         {
             List<ItemCart> listCart = Session["Cart"] as List<ItemCart>;
             listCart.Clear();
+        }
+        public ActionResult Payment()
+        {
+            return View();
         }
     }
 }

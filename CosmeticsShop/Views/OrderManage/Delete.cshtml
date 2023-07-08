@@ -1,0 +1,20 @@
+﻿@model CosmeticsShop.Models.Order
+
+@{
+    ViewBag.Title = "Huỷ Đơn Hàng";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Huỷ Đơn Hàng</h2>
+
+<h3>Bạn có thật sự muốn huỷ đơn hàng này?</h3>
+<div>
+
+    @using (Html.BeginForm("Delete", "OrderManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <div class="card-footer">
+            <a href="/OrderManage/" class="btn btn-light-secondary">Trở lại</a>
+            <button type="submit" class="btn btn-danger ml-1">Huỷ</button>
+        </div>
+    }
+</div>

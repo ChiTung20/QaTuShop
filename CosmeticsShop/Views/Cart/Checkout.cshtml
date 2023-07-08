@@ -11,7 +11,7 @@
 </style>
 <script>
     $(document).ready(function () {
-        $('.qty').on('keydown', function (e) {
+        $('.qty').on('click', function (e) {
             e.preventDefault();
         });
         $('.qty').change(function () {
@@ -68,15 +68,14 @@
                             window.location.reload();
                         }, 1500);
                     } else {
-                        $.notify("Lỗi!", "error");
+                        $.notify("Số lượng không đủ!", "error");
                         setTimeout(function () {
                             window.location.reload();
                         }, 1000);
                     }
                 },
             });
-        })
-
+        })     
     });
 </script>
 
@@ -92,9 +91,8 @@
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
             <div class="container">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                    <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Giỏ Hàng</li>
                 </ol>
             </div><!-- End .container -->
         </nav><!-- End .breadcrumb-nav -->
@@ -150,17 +148,12 @@
                         <div class="cart-btn">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div class="coupon-input">
-                                        <input type="text" placeholder="Enter coupon code">
-                                    </div>
+                                    
                                 </div>
                                 <div class="col-lg-5 offset-lg-1 text-left text-lg-right">
                                     <div class="site-btn clear-btn">
-                                        <a href="/Cart/RemoveAll" style="color: #1E1e1e;" class="">Clear Cart</a>
-                                    </div>
-                                    <div class="site-btn update-btn">
-                                        <a href="/Cart/Checkout" style="color: #1E1e1e;" class="">Update Cart</a>
-                                    </div>
+                                        <a href="/Cart/RemoveAll" style="color: #1E1e1e;" class="">Xoá Giỏ Hàng</a>
+                                    </div>                                
                                 </div>
                             </div>
                         </div>
@@ -181,16 +174,8 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="payment-method">
-                                        <form name="payment" action="/Cart/AddOrder" method="post">
-                                            <div class="d-flex align-items-center justify-content-between w-100">
-                                                <h3 style="margin-bottom:15px; padding-bottom:0">Phương thức thanh toán:</h3>
-                                                <select class="dropdown-cart" name="payment">
-                                                    <option value="cod">Tiền mặt (COD)</option>
-                                                    <option value="paypal">Thanh toán với Paypal</option>
-                                                    <option value="momo">Thanh toán với Momo</option>
-                                                </select>
-                                            </div>
-                                            <button type="submit">ĐẶT HÀNG</button>
+                                        <form name="payment" action="/Cart/Payment">                                          
+                                            <button type="submit">Chi Tiết Thanh Toán</button>
                                         </form>
                                     </div>
                                 </div>

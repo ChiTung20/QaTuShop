@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    List<CosmeticsShop.Models.ItemCart> itemCarts = Session["Cart"] as List<CosmeticsShop.Models.ItemCart>;
+}
+
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Thanh Toán</h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a href="/Cart/Checkout">Giỏ Hàng</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Thanh Toán</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="checkout">
+            <div class="container">
+              
+                <form name="payment" action="/Cart/AddOrder" method="post">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h2 class="checkout-title">Chi Tiết Thanh Toán</h2><!-- End .checkout-title -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Người Nhận *</label>
+                                    <input name="shipName" type="text" class="form-control" required>
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+
+
+                            <label>Địa Chỉ *</label>
+                            <input name="address" type="text" class="form-control" placeholder="" required>
+
+                            <label>Email*</label>
+                            <input name="email" type="email" class="form-control" required>
+
+                            <label>Số Điện Thoại *</label>
+                            <input name="mobile" type="number" class="form-control" required>
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <h5 style="margin-bottom:15px; padding-bottom:0">Phương thức thanh toán:</h5>
+                                <select class="dropdown-cart" name="payment">
+                                    <option value="paypal">Thanh toán với Paypal</option>
+                                    <option value="momo">Thanh toán với Momo</option>
+                                </select>
+                            </div>
+                            <a href="/Cart/Checkout" class="btn btn-primary btn-round">Cập Nhật Giỏ Hàng</a>
+                            <button type="submit" class="btn btn-primary btn-round">ĐẶT HÀNG</button>
+
+
+                        </div><!-- End .col-lg-9 -->
+                        <aside class="col-lg-3">
+                            <div class="summary">
+                                <h3 class="summary-title">Hoá Đơn Của Bạn</h3><!-- End .summary-title -->
+
+                                <table class="table table-summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Thanh Toán</th>
+                                        </tr>
+                                    </thead>
+                                    @if (itemCarts != null && itemCarts.Count > 0)
+                                    {
+                                       
+                                            <tbody>
+                                                @foreach (var item in itemCarts)
+                                                {
+                                                <tr>
+                                                    <td><a href="/Product/Details/@item.ProductID">@item.ProductName  (x @item.Quantity)</a></td>
+                                                    <td id=" @item.ProductID">@((item.ProductPrice * item.Quantity).ToString("#,##"))₫</td>
+                                                </tr>
+                                                }
+                                                <tr>
+                                                    <td>Giao hàng:</td>
+                                                    <td>Miễn Phí</td>
+                                                </tr>
+
+                                                <tr class="summary-total">
+                                                    <td>Tổng Cộng:</td>
+                                                    <td>@itemCarts.Sum(x => x.Quantity * x.ProductPrice).ToString("#,##")₫</td>
+                                                </tr><!-- End .summary-total -->
+                                            </tbody>
+
+                                    }
+                                    </table><!-- End .table table-summary -->                             
+                            </div><!-- End .summary -->
+                        </aside><!-- End .col-lg-3 -->
+                    </div><!-- End .row -->
+                </form>
+            </div><!-- End .container -->
+        </div><!-- End .checkout -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->

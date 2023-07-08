@@ -333,12 +333,11 @@ namespace CosmeticsShop.Controllers
             var user = db.Users.FirstOrDefault(u => u.OTPRecords == otp);
             if (user != null)
             {
-                Models.User userAdded = new Models.User();
                 // cập nhật mật khẩu
+                user.Name = user.Email;
                 user.UserTypeID = 2;
                 user.Avatar = "avatar.jpg";
-                user.Password = HashMD5.ToMD5(newPassword);
-                userAdded = db.Users.Add(user);
+                user.Password = HashMD5.ToMD5(newPassword);               
                 db.SaveChanges();
 
                 User check = db.Users.SingleOrDefault(x => x.OTPRecords == otp);

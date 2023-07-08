@@ -65,5 +65,18 @@ namespace CosmeticsShop.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult Delete()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Delete(int? ID)
+        {
+            Order order = db.Orders.Find(ID);
+            db.Orders.Remove(order);
+            db.SaveChanges();
+            ViewBag.Message = "Huỷ thành công";
+            return RedirectToAction("Index");
+        }
     }
 }

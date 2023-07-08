@@ -22,10 +22,15 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th scope="col">Tên Người Nhận</th>
+                                <th scope="col">Số Điện Thoại</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Địa Chỉ</th>
                                 <th scope="col">Tên sản phẩm</th>
                                 <th scope="col">Hình ảnh</th>
                                 <th scope="col">Đơn giá</th>
                                 <th scope="col">Số lượng</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -34,10 +39,15 @@
                                 foreach (var item in Model)
                                 {
                                     <tr>
+                                        <td>@item.Order.ShipName</td>
+                                        <td>@item.Order.ShipMobile</td>
+                                        <td>@item.Order.ShipEmail</td>
+                                        <td>@item.Order.ShipAddress</td>
                                         <td>@item.ProductName</td>
                                         <td><img src="~/Content/images/@item.ProductImage" alt="Alternate Text" style="width:50px;height:80px" /></td>
                                         <td>@item.ProductPrice</td>
                                         <td>@item.Quantity</td>
+
                                     </tr>
                                 }
                             }

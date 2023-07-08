@@ -58,6 +58,10 @@
           <Property Name="DateOrder" Type="datetime" />
           <Property Name="DateShip" Type="datetime" />
           <Property Name="IsPaid" Type="bit" />
+          <Property Name="ShipName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipMobile" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -404,6 +408,10 @@
           <Property Name="IsPaid" Type="Boolean" />
           <NavigationProperty Name="OrderDetails" Relationship="ShoppingModel.FK__OrderDeta__Order__25869641" FromRole="Order" ToRole="OrderDetail" />
           <NavigationProperty Name="User" Relationship="ShoppingModel.FK__Orders__UserID__4316F928" FromRole="Order" ToRole="User" />
+          <Property Name="ShipName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipMobile" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -662,6 +670,10 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="ShoppingModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ShipMobile" ColumnName="ShipMobile" />
+                <ScalarProperty Name="ShipEmail" ColumnName="ShipEmail" />
+                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
+                <ScalarProperty Name="ShipName" ColumnName="ShipName" />
                 <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
                 <ScalarProperty Name="DateShip" ColumnName="DateShip" />
                 <ScalarProperty Name="DateOrder" ColumnName="DateOrder" />
