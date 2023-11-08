@@ -109,8 +109,13 @@ namespace CosmeticsShop.Controllers
 
         public ActionResult Details(int ID/*, int detailid*/)
         {
-            Product product = db.Products.Find(ID);          
+            var check = db.Products.FirstOrDefault(p=>p.ID == ID);
+            if (check == null) return View("Error");
+            Product product = db.Products.Find(ID);
+            //throw new Exception("Lỗi");
             return View(product);
+         
+
         }
 
 

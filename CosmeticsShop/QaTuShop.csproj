@@ -258,6 +258,7 @@
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductManageController.cs" />
+    <Compile Include="Controllers\Error404Controller.cs" />
     <Compile Include="Controllers\SlideController.cs" />
     <Compile Include="Controllers\StatisticController.cs" />
     <Compile Include="Controllers\SlideManageController.cs" />
@@ -3900,6 +3901,8 @@
     <Content Include="Content\assets\images\banners\home\banner-2.jpg" />
     <Content Include="Content\assets\images\banners\home\banner-3.jpg" />
     <Content Include="Content\assets\images\banners\home\banner-4.jpg" />
+    <Content Include="Content\assets\images\banners\home\intro\2.jpg" />
+    <Content Include="Content\assets\images\banners\home\intro\3.jpg" />
     <Content Include="Content\assets\images\banners\home\intro\banner-1.jpg" />
     <Content Include="Content\assets\images\banners\home\intro\banner-2.jpg" />
     <Content Include="Content\assets\images\blog\3cols\post-1.jpg" />
@@ -5189,6 +5192,9 @@
     <Content Include="Content\assets\images\QaTunew-removebg-preview.png" />
     <Content Include="Content\assets\images\qatuvang-removebg-preview.png" />
     <Content Include="Content\assets\images\Quantung-removebg-preview.png" />
+    <Content Include="Content\assets\images\slider\1.jpg" />
+    <Content Include="Content\assets\images\slider\2.jpg" />
+    <Content Include="Content\assets\images\slider\3.jpg" />
     <Content Include="Content\assets\images\slider\slide-1-480w.jpg" />
     <Content Include="Content\assets\images\slider\slide-1.jpg" />
     <Content Include="Content\assets\images\slider\slide-2-480w.jpg" />
@@ -5854,6 +5860,8 @@
     <Content Include="Views\Home\ExampleUsage.cshtml" />
     <Content Include="Views\Cart\Payment.cshtml" />
     <Content Include="Views\OrderManage\Delete.cshtml" />
+    <Content Include="Views\Error404\Error.cshtml" />
+    <Content Include="Views\Home\Error404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

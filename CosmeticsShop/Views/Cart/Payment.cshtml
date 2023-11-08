@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Payment";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
-    List<CosmeticsShop.Models.ItemCart> itemCarts = Session["Cart"] as List<CosmeticsShop.Models.ItemCart>;
+    List<CosmeticsShop.Models.ItemCart> itemCarts = Session["Cart"] as List<CosmeticsShop.Models.ItemCart>;   
 }
 
 
@@ -32,22 +32,23 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label>Người Nhận *</label>
-                                    <input name="shipName" type="text" class="form-control" required>
+                                    <input name="shipName" type="text" class="form-control" required value="">
+                                    
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
-
                             <label>Địa Chỉ *</label>
-                            <input name="address" type="text" class="form-control" placeholder="" required>
+                            <input name="address" type="text" class="form-control" placeholder="" required >
 
                             <label>Email*</label>
-                            <input name="email" type="email" class="form-control" required>
+                            <input name="email" type="email" class="form-control" required >
 
                             <label>Số Điện Thoại *</label>
-                            <input name="mobile" type="text" class="form-control" required>
+                            <input name="mobile" type="text" class="form-control" required >
                             <div class="d-flex align-items-center justify-content-between w-100">
                                 <h5 style="margin-bottom:15px; padding-bottom:0">Phương thức thanh toán:</h5>
                                 <select class="form-control" name="payment">
+ @*<option value="supmit">Tien Mạt</option>*@
                                     <option value="paypal">Thanh toán với Paypal</option>
                                     <option value="momo">Thanh toán với Momo</option>
                                 </select>

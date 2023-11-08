@@ -60,6 +60,7 @@ namespace CosmeticsShop.Controllers
         {
             UserType userTypeUd = db.UserTypes.Find(userTypes.ID);
             userTypeUd.Name = userTypes.Name;
+            userTypeUd.Description = userTypes.Description;
             db.SaveChanges();
             ViewBag.Message = "Cập nhật thành công";
             return RedirectToAction("Index");

@@ -23,7 +23,7 @@ namespace CosmeticsShop.Controllers
             }
             ViewBag.TotalOrder = db.Orders.Count(x => x.Status == "Complete");
             ViewBag.TotalMoney = db.Orders.Where(x => x.Status == "Complete").ToList().Sum(x => x.OrderDetails.Sum(n => n.ProductPrice * n.Quantity));
-            ViewBag.TotalClient = db.Users.Count(x => x.UserType.Name == "Client");
+            ViewBag.TotalClient = db.Users.Count(x => x.UserType.ID >1);
             ViewBag.TotalProduct = db.Products.Count(x => x.IsActive == true);
             return View();
         }

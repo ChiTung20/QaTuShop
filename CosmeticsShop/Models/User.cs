@@ -79,6 +79,10 @@ public partial class User
 
     public virtual ICollection<Slide> Slides { get; set; }
 
-}
+        public static implicit operator User(string v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }

@@ -7,18 +7,27 @@
 <!--content-->
 <div class="products">
     <div class="container">
-        <h2>Đơn đặt hàng của tôi</h2>
+        <h3>Đơn đặt hàng của tôi</h3>
         <div>
+            <nav class="breadcrumb-nav mb-2" style="background-color: transparent;">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+                        <li class="breadcrumb-item"><a href="/User/Infor">Tài Khoản</a></li>
+
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
             <div class="py-2">
                 <div class="navbar-nav d-flex flex-row">
-                    <a class="nav-item nav-link active badge badge-light p-0 px-2 py-2" href="#processing" data-toggle="tab">Chưa duyệt</a>
-                    <a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href=" #processed" data-toggle="tab">Đã duyệt</a>
-                    <a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href="#delivering" data-toggle="tab">Đang giao hàng</a>
-                    <a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href="#complete" data-toggle="tab">Hoàn thành</a>
+                    @*<h5><a class="nav-item nav-link active badge badge-light p-0 px-2 py-2" href="#processing" data-toggle="tab">Chưa duyệt</a></h5>*@
+                    <h5><a class="nav-item nav-link active badge badge-light p-0 px-2 py-2" href=" #processed" data-toggle="tab">Đã Xác Nhận</a></h5>
+                    <h5><a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href="#delivering" data-toggle="tab">Đang giao hàng</a></h5>
+                    <h5><a class="nav-item nav-link badge badge-light p-0 px-2 py-2" href="#complete" data-toggle="tab">Hoàn thành</a></h5>
                 </div>
             </div>
             <div class="tab-content">
-                <div class="tab-pane active" id="processing">
+                @*<div class="tab-pane active" id="processing">
                     <table class="table">
                         <thead>
                             <tr>
@@ -62,8 +71,8 @@
                             }
                         </tbody>
                     </table>
-                </div>
-                <div class="tab-pane" id="processed">
+                </div>*@
+                <div class="tab-pane active" id="processed">
                     <table class="table">
                         <thead>
                             <tr>

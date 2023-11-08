@@ -6,8 +6,8 @@
 
     List<CosmeticsShop.Models.ItemCart> itemCarts = Session["Cart"] as List<CosmeticsShop.Models.ItemCart>;
     List<CosmeticsShop.Models.Category> categories = ViewBag.ListCategory as List<CosmeticsShop.Models.Category>;
-    List<CosmeticsShop.Models.Product> products = ViewBag.ListProduct as List<CosmeticsShop.Models.Product>;
-    List<CosmeticsShop.Models.Comment> comments = ViewBag.Comments as List<CosmeticsShop.Models.Comment>;
+    //List<CosmeticsShop.Models.Product> products = ViewBag.ListProduct as List<CosmeticsShop.Models.Product>;
+    //List<CosmeticsShop.Models.Comment> comments = ViewBag.Comments as List<CosmeticsShop.Models.Comment>;
     //IEnumerable<CosmeticsShop.Models.Comment> comments1 = ViewBag.ListComments as List<CosmeticsShop.Models.Comment>;
 }
 
@@ -76,13 +76,13 @@
 
                                 <div id="product-zoom-gallery" class="product-image-gallery">
                                     <a class="product-gallery-item active" href="#" data-image="~/Content/assets/images/products/single/centered/1.jpg" data-zoom-image="~/Content/assets/images/products/single/centered/1-big.jpg">
-                                        <img src="@Url.Content("~/Content/images/" + Model.Image2)" alt="product side">
+                                        <img src="@Url.Content("~/Content/images/" + Model.Image1)" alt="product side">
                                     </a>
                                     <a class="product-gallery-item active" href="#" data-image="~/Content/assets/images/products/single/centered/1.jpg" data-zoom-image="~/Content/assets/images/products/single/centered/1-big.jpg">
                                         <img src="@Url.Content("~/Content/images/" + Model.Image2)" alt="product side">
                                     </a>
                                     <a class="product-gallery-item active" href="#" data-image="~/Content/assets/images/products/single/centered/1.jpg" data-zoom-image="~/Content/assets/images/products/single/centered/1-big.jpg">
-                                        <img src="@Url.Content("~/Content/images/" + Model.Image2)" alt="product side">
+                                        <img src="@Url.Content("~/Content/images/" + Model.Image3)" alt="product side">
                                     </a>
                                 </div><!-- End .product-image-gallery -->
                             </div><!-- End .row -->

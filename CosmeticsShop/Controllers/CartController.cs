@@ -123,9 +123,9 @@ namespace CosmeticsShop.Controllers
             order.ShipEmail = email;
             order.DateOrder = DateTime.Now;
             order.DateShip = DateTime.Now.AddDays(3);
-            order.Status = "Processing";
+            order.Status = "Processed";
             order.UserID = user.ID;
-            order.IsPaid = false;
+            order.IsPaid = true;
             db.Orders.Add(order);
             db.SaveChanges();
             int o = db.Orders.OrderByDescending(p => p.ID).FirstOrDefault().ID;

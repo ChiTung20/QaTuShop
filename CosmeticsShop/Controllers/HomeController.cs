@@ -151,18 +151,18 @@ namespace CosmeticsShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult GetOTP(string recipientEmail)
+        public ActionResult GetOTP(string recipientEmail)//Quên Mật Khẩu
         {
             if (string.IsNullOrEmpty(recipientEmail))
             {
-                ModelState.AddModelError("", "Please enter a valid email address.");
+                ModelState.AddModelError("", "Hãy nhập Email hợp lệ.");
                 return View();
             }
 
             // Kiểm tra tính hợp lệ của địa chỉ email (định dạng Gmail)
             if (!ForgotPassword.IsValidGmailAddress(recipientEmail))
             {
-                ModelState.AddModelError("", "Please enter a valid Gmail address.");
+                ModelState.AddModelError("", "Hãy nhập Email hợp lại.");
                 return View();
             }
 
@@ -200,7 +200,7 @@ namespace CosmeticsShop.Controllers
                 }
                 else
                 {
-                    ViewBag.Message = "Người dùng không tồn tại trong cơ sở dữ liệu.";
+                    ViewBag.Message = "OTP Sai.";
                     return View();
                 }
             }
@@ -221,7 +221,7 @@ namespace CosmeticsShop.Controllers
 
             if (newPassword != confirmPassword)
             {
-                ViewBag.ErrorMessage = "Password and Confirm Password do not match";
+                ViewBag.ErrorMessage = "Mật khẩu không trùng khớp";
                 ViewBag.ShowResetForm = true;
                 ViewBag.Email = email;
                 return View("ForgotPassword");
@@ -253,6 +253,8 @@ namespace CosmeticsShop.Controllers
                 return View("ForgotPassword");
             }
         }
+
+
         //đăng ký với mã otp
         public ActionResult Register()
         {
@@ -267,9 +269,9 @@ namespace CosmeticsShop.Controllers
                 ViewBag.Message = "Email đã tồn tại";
                 return View();
             }
-            if (!ForgotPassword.IsValidGmailAddress(recipientEmail))
+            if (!ForgotPassword.IsValidGmailAddress(recipientEmail))//Kiểm tra mail có đúng định dạng
             {
-                ModelState.AddModelError("", "Please enter a valid Gmail address.");
+                ModelState.AddModelError("", "hãy nhập Email hợp lệ.");
                 ViewBag.Invalid = "lỗi";
                 return View();
             }

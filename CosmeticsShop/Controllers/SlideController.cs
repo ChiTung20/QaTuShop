@@ -16,11 +16,13 @@ namespace CosmeticsShop.Controllers
             var news = db.Slides
                 .AsNoTracking()
                 .Where(x => x.Status == true)
-                .OrderBy(x => x.DisplayOrder).ToList();
+                .OrderBy(x => x.DisplayOrder).ToList();         
             return View(news);
         }
         public ActionResult Details(int ID)
         {
+            var check = db.Slides.FirstOrDefault(p => p.ID == ID);
+            if (check == null) return View("Error");
             Slide slide = db.Slides.Find(ID);
             return View(slide);
         }
